@@ -1,0 +1,1480 @@
+Current Drug Targets
+->AB@2CD;>
+	->BEA2DD@:
+
+	
+
+
+
+
+
+Send Orders for Reprints to reprints@benthamscience.net
+Current Drug Targets, 2020, 21, 3-17
+3
+
+REVIEW ARTICLE
+Bioinformatics Approaches for Anti-cancer Drug Discovery
+Kening Li1,#, Yuxin Du1,#, Lu Li2
+ and Dong-Qing Wei1,*
+1
+State Key Laboratory of Microbial Metabolism and School of Life Sciences and Biotechnology, Shanghai Jiao Tong
+University, Shanghai 200240, China; 2
+Department of Bioinformatics, Nanjing Medical University, Nanjing 211166,
+China
+A R T I C L E H I S T O R Y
+Received: April 20, 2019
+Revised: July 17, 2019
+Accepted: July 26, 2019
+DOI:
+10.2174/1389450120666190923162203
+Abstract: Drug discovery is important in cancer therapy and precision medicines. Traditional approaches of drug discovery are mainly based on in vivo animal experiments and in vitro drug screening, but these methods are usually expensive and laborious. In the last decade, omics data explosion
+provides an opportunity for computational prediction of anti-cancer drugs, improving the efficiency of
+drug discovery. High-throughput transcriptome data were widely used in biomarkers’ identification
+and drug prediction by integrating with drug-response data. Moreover, biological network theory and
+methodology were also successfully applied to the anti-cancer drug discovery, such as studies based
+on protein-protein interaction network, drug-target network and disease-gene network. In this review,
+we summarized and discussed the bioinformatics approaches for predicting anti-cancer drugs and drug
+combinations based on the multi-omic data, including transcriptomics, toxicogenomics, functional genomics and biological network. We believe that the general overview of available databases and current computational methods will be helpful for the development of novel cancer therapy strategies.
+Keywords: Drug discovery, bioinformatics, cancer therapy, precision medicine, multi-omic data, biomarkers.
+1. INTRODUCTION
+ Drug treatment is an essential approach for cancer therapy [1-3]. Screening leading compounds in pre-clinical studies plays a critical role in the drug discovery process [4, 5].
+Many efforts have been made to improve the leading compound selection process, such as the use of in vivo animal
+experiments and in vitro drug screening, and these methods
+have achieved remarkable success [6-10]. However, the experimental tests that are used to examine small molecules in
+cancer drug discovery are usually time-consuming, expensive and laborious [11-13]. Thus, efficient approaches are
+required to improve the traditional drug discovery.
+ In the last decade, along with the development of high
+throughput technologies, such as microarray and nextgeneration sequencing, multi-omics data were generated, for
+example, genomics, transcriptomics, proteomics and metabolomics data [14-16]. These multi-omics data provide
+enormous useful information for improving cancer therapy
+strategies.
+ Firstly, compared with identifying novel compounds for
+cancer therapy, revealing the novel use of existing drugs is
+much more economical. The generation of multi-omics data
+*Address correspondence to this author at the State Key Laboratory of Microbial Metabolism and School of Life Sciences and Biotechnology, Shanghai Jiao Tong University, Shanghai 200240, China;
+E-mail: dqwei@sjtu.edu.cn
+#
+These authors contributed equally to this work.
+provides an opportunity for computational prediction of anticancer drugs based on drug repositioning [17, 18]. Drug repositioning, which concerns the detection and development
+of new clinical indications for those existing drugs, or for
+those that are in the development pipeline, has emerged as an
+increasingly important strategy for the new drug discovery
+[19].
+ Secondly, one of the greatest challenges in current cancer
+therapy is how to deal with patient heterogeneity. Over the
+past 50 years, there have been many studies showing that
+patients with the same type of cancer have completely different responses when treated with the same drug [20-22]. Understanding the patient-specific genetic, epigenetic and transcriptomics profile is useful to guide drug treatment and improve clinical outcomes [23]. With the development of sequencing technology, it is now possible to obtain multiomics information for patients prior to determining a specific
+treatment regimen. In this decade, bioinformatics methods
+were widely used to interpret the sequencing data, predict the
+drug sensitivity (or resistance), and finally direct the precise
+drug selection [24, 25].
+ Thirdly, combination therapies, using multiple drugs to
+improve clinical outcomes, are widely used in the treatment
+of cancer. Combination therapies have multiple advantages
+compared to monotherapy [26, 27]. They offer a higher ability to kill cancer cells [28]; could reduce the risk of adverse
+effects because of lower individual dosage [29]; could prevent therapeutic resistance by targeting multiple compensatory pathways, simultaneously [30]. However, using experi1873-5592/20 $65.00+.00 ©2020 Bentham Science Publishers
+4 Current Drug Targets, 2020, Vol. 21, No. 1 Li et al.
+mental tests to identify and validate drug combinations is
+difficult, due to both the large number of drug pairs as well
+as dosage combinations [29, 31]. Bioinformatics approaches
+are advantageous in calculating all of the possible combinations iteratively and identifying an efficient multi-component
+therapy. Especially, based on biological network theory and
+methodologies, multiple studies have systematically tested
+the pair-wise drug combinations and predicted efficacious
+drug combinations for cancer therapy [32-35].
+ In this review, we summarized and discussed the utility
+of current multi-omics data and corresponding bioinformatics approaches in the analyses of drug repositioning, precise
+cancer therapy and drug combinations. Specifically, we introduced the general framework of bioinformatics approaches for identifying potential anti-cancer drugs. Then,
+we discussed the different public databases that could be
+used to develop new methods for identifying cancer biomarkers and drug targets. In addition, we provided examples
+of identifying potential therapy regimens using bioinformatics approaches in various types of cancer. Finally, we discussed the current problems and challenges that needed to be
+addressed in future studies.
+2. GENERAL FRAMEWORK
+ In general, two types of data are required in drug discovery using bioinformatics approaches. Firstly, we need to obtain cancer-related genes. Selecting the best targets is a key
+challenge for drug discovery, and achieving this effectively,
+efficiently and systematically is particularly important for
+prioritizing candidates from the sizeable lists of potential
+therapeutic targets [36]. There are some public databases
+which could provide related data resource. Some of them
+provide direct information of oncogenes or tumor suppressor
+genesets of different cancer types, such as OMIM [37, 38],
+GAD [39], GWAS Catalog [40], and DisGeNET [41, 42]
+databases. While the other databases contain raw highthroughput data which need to be analyzed by bioinformatics
+approaches to identify cancer-related genes, such as TCGA
+[43] and GEO [44, 45] (Table 1). Secondly, drug-responsive
+genes are also required in the analyses pipeline. Similarly,
+some databases provide direct physical drug-target genes
+interactions on FDA-approved or clinically investigational
+drugs, for example, drug-target interactions in the DrugBank
+database [46-48], the Therapeutic Target Database [49, 50],
+the PharmGKB database [51], and the Naturally Occurring
+Plant-based Anti-cancer Compound-Activity-Target database
+(NPACT) database [52]. Other databases offer large-scale
+gene expression profiles from human cancer cell lines treated
+with different drug compounds under different conditions,
+such as cMAP [53, 54], CCLE [55-57] and NCI60 [58, 59]
+databases (Table 2). Therefore, researchers could simply
+apply genesets enrichment analysis on cancer-related and
+drug-responsive genes to identify significant cancer-drug
+relationships based on direct data resource in databases. In
+another way, researchers could also design more complicated
+frameworks including machine learning or network analysis
+to analyze the raw data in databases mentioned above to explore the potential association between cancer and drugs or
+drug combinations, and even to reveal the underlying
+mechanisms of cancer therapy. For example, some studies
+integrated multi-omics data, such as transcriptomics, toxicogenomics, function genomics and biological network to analyze the drug repositioning [60], individualized treatment
+[61] and drug combinations [62]. Selvaraj et al. [63] firstly
+used meta-analysis of selective non-small cell lung cancer
+(NSCLC) mRNA expression profile datasets to identify potential biomarkers and the molecular mechanisms related to
+the prognosis of NSCLC patients. They also used the Network Analyst tool to recognize differentially expressed
+genes (DEGs). Finally, a Cytoscape plugin was exploited to
+complete the function and pathway enrichment analysis. Furthermore, protein-drug interaction network and neural network algorithms were used to identify candidate drugs. This
+study may assist treatment strategy for NSCLC patients, and
+the framework gives us a good reference to study other cancer
+types. We summarized this general framework in (Fig. 1). In
+the following sections, we will comprehensively describe the
+related databases, bioinformatics methods and application
+areas.
+3. AVAILABLE PUBLIC DATABASES
+3.1. Direct Cancer-gene Databases
+3.1.1. Online Mendelian Inheritance in Man (OMIM)
+ The Online Mendelian Inheritance in Man (OMIM) is a
+continuously updated catalog of human genes and genetic
+disorders and traits, with a particular focus on the relationship between phenotype and genotype [37]. The full-text,
+referenced overviews in OMIM contain information on all
+known mendelian disorders and over 15,000 genes. It is updated daily. As of 28 June 2019, approximately 9,000 of
+them over 25,000 entries in OMIM represented phenotypes;
+the rest represented genes, many of which were related to
+known phenotypes. The content of OMIM is based on the
+selection and review of the published peer-reviewed biomedical literature. The database could be used as a resource
+for cancer-related genes, and is widely used in computational
+drug screening [64].
+3.1.2. Catalogue of Somatic Mutations in Cancer (COSMIC)
+ The Catalogue Of Somatic Mutations In Cancer
+(COSMIC), is an expert-curated database encompassing the
+wide variety of somatic mutation mechanisms causing human cancer [65, 66]. Growing in both content and scope,
+COSMIC incorporates details on millions of mutations
+across different cancer types. Hand-curation of key cancer
+genes provide in-depth detail on mutation distributions and
+effects, whilst semi-automated curation of cancer genomes
+provides broad somatic annotations toward target discovery
+and identification of patterns and signatures [67]. This information is fully available on the website or can be downloaded, and is updated every three months [68, 69].
+3.1.3. The Genetic Association Database (GAD)
+ The Genetic Association Database is an archive of human genetic association studies of complex diseases and
+disorders. The goal of this database is to follow the user to
+identify medically relevant polymorphism [39]. GAD provides a comprehensive, public, web-based repository of molecular, clinical and study parameters for >5,000 human genetic association studies. This database allows the systematic
+Bioinformatics Approaches for Anti-cancer Drug Discovery Current Drug Targets, 2020, Vol. 21, No. 1 5
+Table 1. Data resources for identification of cancer-gene relationships.
+Database URL Brief Description
+The Cancer Genome Atlas
+(TCGA)
+http://cancergenome.nih.gov Genomic data (e.g. Exome, SNP, Methylation, mRNA,
+miRNA, Clinical) of >10 000 patient tissue samples
+across >30 common cancers.
+Gene Expression Omnibus (GEO) http://www.ncbi.nlm.nih.gov/geo GEO is a public functional genomics data repository
+supporting MIAME-compliant data submissions.
+Online Mendelian Inheritance in
+Man (OMIM)
+http://www.omim.org Relationship between genes and genetic phenotypes,
+particularly disorders.
+Genetic Association Database
+(GAD)
+http://www.tapi.dost.gov.ph/resources/gad-databases A database of genetic association data from complex
+diseases and disorders.
+GWAS Catalog https://www.ebi.ac.uk/gwas/ A curated collection of all published genome-wide association studies, produced by a collaboration between
+EMBL-EBI and NHGRI.
+DisGeNet https://www.uniprot.org/ A discovery platform containing one of the largest publicly available collections of genes and variants associated to human diseases.
+The Comparative Toxicogenomics Database (CTD)
+https://toxnet.nlm.nih.gov/ A robust, publicly available database that aims to advance understanding about how environmental exposures
+affect human health.
+ClinVar https://www.clinicalgenome.org/ A freely accessible, public archive of reports of the relationships among human variations and phenotypes.
+Catalogue Of Somatic Mutations
+In Cancer (COSMIC)
+https://cancer.sanger.ac.uk/cosmic A comprehensive resource for exploring the impact of
+somatic mutations in human cancer.
+Table 2. Data resources for identification of drug-gene relationships.
+Database URL Brief Description
+DrugBank http://www.drugbank.ca/ Detailed drug (i.e. chemical, pharmacological and pharmaceutical)
+data with comprehensive drug target (i.e. sequence, structure, and
+pathway) information.
+Therapeutic Target (TTD) http://bidd.nus.edu.sg/group/cjttd/ A database to provide information about the known and explored
+therapeutic protein and nucleic acid targets, the targeted disease, pathway information and the corresponding drugs directed at each of these
+targets.
+PharmGKB https://www.pharmgkb.org/ A publicly available, online knowledgebase responsible for the aggregation, curation, integration and dissemination of knowledge regarding
+the impact of human genetic variation on drug response.
+Clinicaltrials.gov https://www.clinicaltrials.gov/ A database of privately and publicly funded clinical studies conducted
+around the world.
+NPACT http://www.npact.org/ A curated database of Plant derived natural compounds that exhibit
+anti-cancerous activity.
+The Connectivity Map (CMap) http://www.broadinstitute.org/cmap Gene expression profiles of >1000 drugs across three primary cell
+lines.
+Cancer Cell Line Encyclopedia
+(CCLE)
+https://portals.broadinstitute.org/ccle Genomic data (e.g. DNA copy number, mRNA expression, mutation
+data) of > 1000 cancer cell lines.
+NCI60 https://discover.nci.nih.gov/cellminer A group of 60 human cancer cell lines used by the National Cancer
+Institute (NCI) for the screening of compounds to detect potential
+anticancer activity.
+Genomics of Drug Sensitivity in
+Cancer
+(GDSC)
+http://www.cancerrxgene.org/download A database of 138 known anti-cancer compounds against over 1000
+different cancer cell lines (on average 525 cell lines tested per compound). 
+6 Current Drug Targets, 2020, Vol. 21, No. 1 Li et al.
+Fig. (1). General framework for drug discovery using bioinformatics approaches.
+analysis of the complex common human genetic disease in
+the context of modern high-throughput assay systems and
+current annotated molecular nomenclature. All datasets can
+be downloaded from the website.
+3.1.4. ClinVar
+ ClinVar is a freely accessible, public archive of reports of
+the relationships among human variations and phenotypes
+hosted by the National Center for Biotechnology Information
+(NCBI) and funded by the intramural National Institutes of
+Health (NIH) funding. Its strength lies in the integration of
+more than ten different types of databases, such as dbSNP,
+dbVar, Pubmed, OMIM and other databases' data and information on genetic variation and clinical phenotype to form a
+standard and reliable database of genetic variation and clinical correlation. Researchers can download data for a more
+personalized study [70]. As ClinVar database gradually extends, the corresponding data analysis model, tools and applications also appear unceasingly, thoroughly. Based on
+ClinVar database, Daneshjou et al. [71] developed a webbased tool called Path-Scan to help researchers analyse the
+potential risk variants, and the tools themselves can also be
+used to conduct statistical analysis of all kinds of variations.
+3.1.5. DisGeNET
+ DisGeNET is a discovery platform containing one of the
+largest publicly available collections of genes and variants
+associated to human diseases [41, 42]. DisGeNET integrates
+data from expert-curated repositories, GWAS catalogues,
+animal models and the scientific literature. DisGeNET data
+are homogeneously annotated with controlled vocabularies
+and community-driven ontologies. Additionally, several
+original metrics are provided to assist the prioritization of
+genotype-phenotype relationships [41]. The current version
+of DisGeNET (v6.0) contains 628,685 gene-disease associations (GDAs), between 17,549 genes and 24,166 diseases,
+disorders, traits, and clinical or abnormal human phenotypes.
+It also contains 210,498 variant-disease associations
+Precise therapy
+Cancer-gene data resources
+Direct relationships Patient omics data
+Drug-gene data resources
+Direct relationships genome-wide data
+OMIM of drug-response
+GAD
+GWAS Catalog
+DisGeNet
+CTD
+ClinVar
+TCGA
+GEO
+DrugBank
+Therapeutic Target
+PharmGKB
+Clinicaltrials.gov
+cMAP
+CCLE
+NCI60
+COSMIC
+GDSC
+Integration data analysis
+Transcriptome
+analysis
+Geneset
+enrichment
+analysis
+Network
+analysis
+Pathway
+analysis
+Function
+analysis
+Drug repositioning Drug combinations
+NPACT
+Drug design
+Cancer related
+pathways
+KEGG
+NES=2.55
+p<0.0001
+q<0.0001
+SCF-dependent proteasomal ubiquitindependent protein catabolic process positive regulation of canonical
+Wnt signaling pathway keratinization skin development epidermis development
+nervous system development
+system development
+animal organ development
+multicellular organism development
+developmental process
+anatomical structure development
+cellular metabolic process
+cellular macromolecule
+metabolic process
+metabolic process
+organic substance
+primary metabolic process
+nitrogen compound
+metabolic process
+macromolecule metabolic process
+metabolic process
+multicellular organismal process
+cellular process
+biological_process
+detection of stimulus involved in
+sensory perception
+sensory perception of
+chemical stimulus
+sensory perception
+of smell
+detection of chemical
+stimulus
+detection of chemical stimulus
+involved in sensory perception
+detection of chemical stimulus involved
+in sensory perception of smell
+4.0
+0.1
+1.0
+Fold Change
+10 20 30 -log(q)
+Biological Process (p<0.01)
+0 5 10 15 20
+Fold Enrichment
+-log2(p-value)
+hsa04370:VEGF
+signaling pathway
+hsa04520:Adherens
+
+	
+
+
+signaling pathway
+hsa04520:Adherens
+
+hsa04310:Wnt signaling
+pathway
+FOXQ1 HSF1
+ARID3A HOXB9
+SOX9 IRF1
+ITGB2
+NFE2L2 FOXO4
+CEBPG
+SOX12
+FOXA2
+SP3
+NR3C1
+LEF1
+ZEB1
+MEF2A CEBPB
+HOXB3
+GTF2I
+MYEF2
+ZBTB7B
+KLF7
+SP4
+ZFX
+SNAI2
+SMAD4
+TFAP2C
+MESP1
+POU2F2
+ETS1
+LMO2
+Bioinformatics Approaches for Anti-cancer Drug Discovery Current Drug Targets, 2020, Vol. 21, No. 1 7
+(VDAs), between 117,337 variants and 10,358 diseases,
+traits, and phenotypes.
+3.2. Patient Omics Data
+3.2.1. The Cancer Genome Atlas (TCGA)
+ The Cancer Genome Atlas (TCGA) database aims to
+profile large-scale multi-omics data of cancer patients and
+discover the molecular alterations to facilitate diagnosis,
+treatment and prognosis [43]. It publicly provides genomic,
+transcriptomic, DNA methylation and proteomic data from
+thousands of patient tissue samples, covering 26 types of
+cancer. These data sets provide a comprehensive range of
+genetic alterations and transcriptional regulation across multiple cancer types. In addition, TCGA also provides clinical
+information of patients, such as treatment details and survival times, allowing patient stratification, drug response
+analysis and prognostic marker identification [72].
+ Using the large-scale raw omics data in TCGA database,
+researchers could obtain related genes of a certain type of
+cancer by identifying somatically mutated genes, copy number gained or lost genes, differentially expressed genes, and
+differentially methylated genes [73]. Moreover, the intersection of the above genesets is believed to be important driver
+genes in cancer initiation and development, providing accurate prediction of cancer-related geneset [74]. This geneset
+could be further integrated with drug-responsive genes to
+identify potential drugs or drug combinations. In addition,
+researchers could also predict tumor subtypes based on the
+molecular heterogeneity of TCGA patients [75-78], and then
+identify specific drugs for a certain subgroup of tumor,
+thereby improving precise therapy [79-81].
+3.2.2. Gene Expression Omnibus (GEO)
+ Gene expression omnibus (GEO) is a public functional
+genomics data repository, containing both array- and sequence-based data [44, 45]. GEO database has a great number of experiments and curated gene expression data. Researchers could freely query and download the data that they
+are interested in. Its data have been extensively explored in
+drug repositioning studies [82, 83]. One common approach
+using this data is to look for drug-disease relationships by
+systematically comparing drug-gene expression profiles and
+disease-gene expression profiles [84].
+3.2.3. Cancer-related Pathways and Networks
+ Researchers could also obtain cancer-associated genes
+from databases that curated cancer-related pathways. The upto-date Kyoto Encyclopedia of Genes and Genomes (KEGG)
+[85] contains nine general pathways for different types of
+cancer, such as "Pathways in cancer", "Transcriptional misregulation in cancer" and "PD-L1 expression and PD-1
+checkpoint pathway in cancer". More specifically, KEGG
+also contains specific pathways for various types of cancer,
+such as colorectal cancer, pancreatic cancer, breast cancer
+and melanoma [85]. In addition, many other pathways were
+confirmed to be involved in cancer progression. The seven
+well-known cancer-related pathways are (i) cell cycle progression, (ii) apoptosis, (iii) MAP kinase (MAPK), (iv) innate immune response (Toll-like receptor), (v) TGFbeta, (vi)
+phosphatidyl inositol kinase (PI3K), and (vii) JAK-STAT
+pathways. Many important cancer-associated proteins, such
+as P53 and NF-B, are associated with at least one of these
+pathways [86].
+ Furthermore, proteins that are not included in these
+pathways but interact with the proteins in these pathways
+were frequently reported to have potential roles in cancer
+initiation and progression [87]. Therefore, lots of studies
+curated a collection of cancer-related genes from cancerassociated signaling pathways together with their proteinprotein interactions. Some useful resources for proteinprotein and genetic interactions are HPRD [88], BioGRID
+[89], STRING [90] and IntAct [91].
+3.3. Direct Drug-gene Databases
+3.3.1. DrugBank
+ The DrugBank database is a comprehensive, freely accessible, online database containing information on drugs
+and drug targets [46]. As both a bioinformatics and a
+cheminformatics resource, DrugBank combines detailed
+drug (i.e. chemical, pharmacological and pharmaceutical)
+data with comprehensive drug targets (i.e. sequence, structure, and pathway) information [47]. Because of its broad
+scope, comprehensive referencing and unusually detailed
+data descriptions, DrugBank is more linked to a drug encyclopedia than a drug database [48]. DrugBank is widely used
+by the drug industry, medicinal chemists, pharmacists, physicians, students and the general public [47]. Its extensive
+drug and drug-target data have enabled the discovery and
+repurposing of a number of existing drugs to treat rare and
+newly identified illnesses [46]. The latest release of DrugBank (version 5.1.3, released 2019-04-02) contains 12,114
+drug entries including 2,555 approved small molecule drugs,
+1,280 approved biotech (protein/peptide) drugs, 130 nutraceuticals and over 5,841 experimental drugs. Additionally,
+5,161 non-redundant protein (i.e. drug target/enzyme
+/transporter/carrier) sequences are linked to these drug entries. Each DrugCard entry contains more than 200 data
+fields with half of the information being devoted to
+drug/chemical data and the other half devoted to drug target
+or protein data.
+3.3.2. Therapeutic Target Database
+ Therapeutic Target Database (TTD) is a database containing information about the known and explored therapeutic protein and nucleic acid targets, the targeted disease,
+pathway information and the corresponding drugs directed at
+each of these targets [49, 50]. Also included in this database
+are links to relevant databases containing information about
+target function, sequence, 3D structure, ligand binding properties, enzyme nomenclature and drug structure, therapeutic
+class, and clinical development status. All information provided is fully referenced.
+ The latest update of TTD was in 2018 [49]. The updated
+TTD includes: (i) experimental validation information of 932
+targets (351 successful, 252 clinical trial, 295 research and
+34 discontinued) included to confirm target data from multiple perspectives; (ii) drugs in TDD are from 189 therapeutic
+classes with very diverse (109 types) mode of actions. Bioactive compounds of 228 distinct chemical types with 841
+QSAR models against 121 targets (71 successful, 20 clinical 
+8 Current Drug Targets, 2020, Vol. 21, No. 1 Li et al.
+trial, 30 research) are provided; (iii) TDD also provides 1755
+biomarkers for 365 disease conditions, 210 scaffolds for 714
+drugs/leads, 1008 nature-derived drugs, and activity data of
+1436 agents against 297 cell-lines; (iv) the pathway classification system of 302 KEGG, 211 MetaCyc/BioCyc, 26 NetPath, 134 PANTHER pathway, 99 PathWhiz, 222 PID, 578
+Reactome and 524 WikiPathways pathways is incorporated
+in TDD for describing 1428 targets and 19903 drugs; (v) The
+ICD-10-CM and ICD-9-CM codes of the International Classification of Diseases are incorporated in TDD for describing
+2645 targets, 14370 drugs and 2635 disease conditions. This
+newly updated TTD is of great use for facilitating the patient-focused research, discovery and clinical investigations
+of the targeted therapeutics.
+3.3.3. Naturally Occurring Plant-based Anti-cancer Compound-Activity-Target database (NPACT)
+ NPACT is a curated database of Plant-derived natural
+compounds that exhibit anti-cancerous activity [52]. It contains 1574 entries and each record provides information on
+their structure, properties (physical, elemental and topological), cancer type, cell lines, inhibitory values (IC50, ED50,
+EC50, GI50), molecular targets, commercial suppliers and
+drug-likeness of compounds. NPACT concentrates on anticancer natural compounds found in plants only. It is unique
+in providing bioactivities of these natural compounds against
+different cancer cell lines and their molecular target. NPACT
+can easily be browsed or queried using various options, and
+an online similarity tool has also been made available. Further, to facilitate retrieval of existing data, each record is
+hyperlinked to similar databases like SuperNatural, Herbal
+Ingredients’ Targets, Comparative Toxicogenomics Database, PubChem and NCI-60 GI50 data.
+3.4. Genome-wide drug-response databases
+3.4.1. Cancer Cell Line Encyclopedia (CCLE)
+ The Cancer Cell Line Encyclopedia(CCLE) project aims
+to provide systematic omics data of pharmacological experiments based on the study of cancer cell lines, facilitating
+the identifications of molecular signatures of drugs [55, 56].
+High-throughput sequencing was conducted for over 1500
+human cancer cell lines, and 2317 mutant genes have been
+determined. Gene expression profiling was also conducted
+using 54,000 gene probes across 1037 cell lines. In addition,
+the CCLE has profiled 24 compounds across 504 cell lines to
+associate the drug sensitivities with omics profiles. The comprehensive data resource of CCLE provides an opportunity for
+integrated analysis of transcriptome profiling and drugresponse data to reveal the potential utility of drugs [92, 93],
+as well as the drug sensitivity analysis for personalized
+medicine [55, 94].
+3.4.2. Connectivity Map (CMap)
+ The Connectivity Map (CMap) database aims to construct a detailed map for functional associations among small
+molecules, physiological processes, and disease states [54].
+CMap database, which was released by the Broad Institute,
+provided tremendous resources for drug treatment, including
+more than 7000 gene expression profiles of 12000 coding
+genes on mainly 4 human cell lines (breast cancer epithelial
+cell lines MCF7, leukemia cell line HL60, prostate cancer
+epithelial cell line PC3, and melanoma cell line SKMEL5),
+treated with 1309 small-molecule drugs at different dosages
+[53]. With such a genome-wide resource of various drugs,
+the cMap database has been widely applied in the prediction
+of drug repositioning and for studying drug action mechanisms in this decade [95, 96].
+3.4.3. The Genomics of Drug Sensitivity in Cancer (GDSC)
+ The Genomics of Drug Sensitivity in Cancer (GDSC)
+database includes extensive information on drug sensitivity
+in cancer cells by providing omics data on molecular alterations and their correlation with anti-cancer drug response
+[97]. In their initial release, investigators screened a set of
+138 known anti-cancer compounds against over 1000 different cancer cell lines (on average 525 cell lines tested per
+compound). In addition, each cell line was also subjected to
+thorough expression and copy number profiling along with
+targeted mutation data for a set of 75 cancer genes. This
+dataset constitutes another great resource for the identification of genomic markers of drug responses.
+3.4.4. NCI60 Project
+ The NCI60 is a database of in vitro drug efficacies for
+77,000 small molecules screened against the NCI60 panel of
+cancer cell lines [58, 25]. NCI60 contains 60 cancer cell
+lines from nine distinct tumor types, namely leukemia, colon, lung, central nervous system, renal, melanoma, ovarian,
+breast, and prostate. The NCI60 collection aims to provide
+information on a broad set of genetic including genomic,
+transcriptome and proteomic data. This panel has been used
+as a standard platform for the development and screening of
+anti-cancer drugs over the last few decades [98]. Importantly, this cancer pharmacology database contains compatible data sets of DNA mutations, gene expression data and
+drug response data for the same cell lines, thus enabling extensive study of the associations among genetic variation,
+transcription, and drug response. The data can be used to
+identify cancer-related genes and further analyze the correlation between drug activity and alterations [98].
+4. BIOINFORMATICS APPROACHES AND APPLICATIONS
+4.1. Drug Design
+ Bioinformatics plays important roles in almost every major step of the drug design process. In this section, we discussed the importance of bioinformatics approaches in various steps of drug design and provided some useful strategies
+and tools for anti-cancer drug development.
+(i) Lead compound screening: In the past, it was necessary to conduct large-scale screening through biochemical methods of a large number of compound
+molecules, which was extremely expensive. With the
+help of QSAR [99, 100], it can be concluded that
+molecules with specific chemical structures tend to
+have specific pharmacological effects. For example,
+the method of simulating docking between drug
+molecules and target proteins [101] and the threedimensional structure search method [102] can search
+the required precursor compounds from the database.
+(ii) Target protein discovery: Bioinformatics methods 
+Bioinformatics Approaches for Anti-cancer Drug Discovery Current Drug Targets, 2020, Vol. 21, No. 1 9
+could be used to quantify and analyze known effective target genes, such as summarizing their characteristics in nucleotide and amino acid sequences, and
+comparing the homology of other series of human
+genes with classic target genes in the gene structure,
+so as to quickly determine whether new genes have
+the potential to become targets of new drugs [103].
+Cancer immunoinformatics has led to new directions
+towards vaccine design from predicted potential epitope candidates, which are able to stimulate the correct cellular or humoral immune responses [104]. Kaliamurthi et al. [105] predicted the potential speciesspecific and therapeutic epitopes from the protein sequences of HPV45 by using different immunoinformatics tools, and the findings on immunogenic and
+IFN--producing CD8+ and overlapped epitopes
+provided new insights into HPV vaccine development. One year later, this team explored the papillomaviral proteome in order to identify potential candidates for a chimeric vaccine against cervix papilloma
+using computational immunology and structural vaccinology approaches, concluding that SGD58 may
+prompt the creation of a vaccine against cervix papilloma [106]. Bioinformatics techniques are also used to
+assess whether a target is ‘druggable’, facilitating to
+reduce the risk of project failure later on in the discovery process. Wooller et al. [107] thoroughly reviewed
+bioinformatics techniques for predicting the druggability of candidate targets. For example, based on the protein structure analysis, some tools such as fPocket
+[108] could score binding pockets on the likelihood of
+their druggability.
+(iii) Mechanism of drug action: Using bioinformatics
+technology to study the similarity in the mechanism
+of action between different drugs promotes the study
+of drug mechanism to a great extent. Studying the
+mechanism of drug action according to existing drugs
+has become an important way of drug designing.
+Hashemzadeh et al. [109] studied the mechanism of
+interaction between trametinib and MEK1/2 by computational simulation. To specify the best interaction
+site of an inhibitor with MEK1/2 based on the interaction energy ranking, they first performed docking and
+then studied the interactions of the ATP-bound MEK
+with trametinib, RAF and the complex of the ATPbound MEK–trametinib with RAF via molecular dynamics simulations. Kaushik et al. [110] used multiapproach analysis to investigate the role of GPR139
+in the molecular mechanisms of the central nervous
+system. Their results of MD analysis suggested that
+the loop region in GPR139 protein structure could affect its binding with drugs.
+(iv) Clinical statistical analysis: whether a compound has
+been continuously optimized and tested to be a successful drug or not, the final evaluation criterion is the
+effect of clinical application, in which biological information is also very important. Tatonet et al. collected a large amount of clinical data and electronic
+medical records, effectively eliminating the interference of covariables such as gender and age in the
+analysis. By observing which specific drug reactions
+a drug tends to cause in a population sample, unknown new drug targets, drug indications, and drug
+combinations can be found [111].
+4.2. Drug Repositioning
+ Drug repositioning, in which preclinical and human
+safety studies have been evaluated, leads to faster, cheaper
+and more efficient conversion to the clinic. It can reduce the
+drug development cycle from 10-17 years to 3-12 years
+[107]. Computational drug repositioning research is of great
+significance to accelerate drug discovery by revealing new
+uses of the existing drugs [19]. In fact, a number of studies
+have already been carried out with various degrees of success. For example, Marstrand et al. [112] identified the candidate drugs and drug targets in acute promyelocytic leukemia using a bioinformatics framework. In the study, the
+authors used publicly available microarray data sets in GEO
+database and identified signatures of genes dysregulated in
+APL by comparison of gene expression profiles of APL cells
+and normal PMs representing the same stage of differentiation. Then, they identified candidate drugs and drug targets
+using the data resource of CMap database. This study provided a conceptual framework that can be applied to any
+type of cancer to uncover candidate drugs from published
+microarray data sets at a low cost. Using resources like
+TCGA, one can find genes or pathways that are significantly
+up-regulated in certain cancers compared to normal tissue
+samples. Identifying such up-regulated signatures could
+highlight drugs known to target these signatures as particularly viable candidates for treatment. For instance, it was
+recently discovered that dopamine receptors were selectively
+up-regulated in neoplastic stem cells in breast cancer. It was
+observed that thioridazine (a compound known to target dopamine receptors) could selectively target cancer stem cells
+[31].
+ It is often helpful to translate the differentially expressed
+genes into a set of enriched biological pathways or genesets.
+Therefore, some studies not only used gene expression and
+drug-response data, but also take the biological functions and
+pathways into consideration to prioritize cancer therapeutic
+small molecules. Lv et al. [113] developed a computational
+method for prioritizing small-molecule drug candidates by
+integrating transcriptomics data of cancer patients, drugresponse data in the CMap database, and pathway information in the KEGG database. The performance of this framework was tested in both breast and prostate cancer datasets.
+This study suggested that adding the functional genomics
+information in the drug discovery pipeline could help in the
+efficient identification of drugs in a systematic way. Menden
+et al. [114] developed a machine-learning model to predict
+the response of cancer cell lines to drug treatment, quantified
+through IC50 values. In the model, cancer mutation status of
+77 oncogenes and micro-satellite status in the cell lines and
+chemical properties were used to build a feed-forward perceptron neural network model and a random forest regression model. The predicted IC50 values were further validated by a cross-validation and an independent blind test.
+ The network-based analysis is another widely used strategy for computational drug repositioning. With advances in
+high-throughput technology and bioinformatics methods, 
+10 Current Drug Targets, 2020, Vol. 21, No. 1 Li et al.
+molecular interactions in the biological systems can be modeled by networks [115]. Previous studies have suggested that
+drug-target network [116], drug-drug network [117], drugdisease network [118], protein interaction network [119],
+transcriptional networks [120] and signaling transduction
+networks [121] are useful in the identification of therapeutic
+targets or characteristics of drug targets [122, 123], thus providing new opportunities for drug discovery or repositioning.
+Gayvert et al. [124] developed CRAFTT, a network-based
+computational drug-repositioning approach for targeting TF
+activity. CRAFTT combines ChIP-seq with drug-induced
+expression profiling to identify small molecules that can specifically perturb TF activity. Its application to ENCODE
+ChIP-seq datasets revealed known drug-TF interactions and
+a global drug-protein network analysis supported these predictions. Application of CRAFTT to ERG, a pro-invasive,
+frequently overexpressed oncogenic TF, predicted that dexamethasone would inhibit ERG activity. Dexamethasone
+significantly decreased cell invasion and migration in an
+ERG-dependent manner. Furthermore, analysis of electronic
+medical record data indicates a protective role for dexamethasone against prostate cancer. Wu et al. [125] constructed a drug-disease heterogeneous network, and identified closely connected modules to extract possible drugdisease pairs for drug repositioning. In the network, a drug or
+a disease with shared genes/targets and enriched features was
+connected and the connection was weighted by a Jaccard
+score.
+ Currently, high throughput machine and deep learning is
+a rational drug design method that benefits the discovery and
+development of drugs targeting specific proteins,opening a
+new paradigm for pharmaceutical research [126]. For example, Zeng et al. [127] developed a network-based deeplearning approach, termed as deepDR, for in silico drug repurposing by integrating 10 networks: one drug-disease, one
+drug-side-effect, one drug-target, and 7 drug-drug networks.
+Specifically, deepDR learns high-level features of drugs
+from the heterogeneous networks by a multimodal deep
+autoencoder. Then the learned low-dimensional representation of drugs together with clinically reported drug-disease
+pairs is encoded and decoded collectively via a variational
+autoencoder to infer candidates for approved drugs for which
+they were not originally approved.
+4.3. Precision Medicine
+ Cancers that appear pathologically similar often respond
+differently to the same drug regimens [21]. Methods to better
+match patients to drugs are in high demand. Precision medicine involves using patient-specific genomic information to
+guide drug treatment, with the expectation that this will ultimately improve clinical outcomes [23]. Bioinformatics
+methods have been emerged to interpret the multi-omics data
+and have come up with strategies for precise drug choices.
+These methods not only allow for the identification of specific genetic traits that confer sensitivity or resistance to drug
+treatment but also combine genetic markers with gene ontologies and biological networks to predict drug response in
+individuals.
+ Tomar et al. [128] performed bioinformatics analysis of
+mRNA expression data retrieved from the ICGC data portal
+with an objective to highlight the genes and pathways responsible for pathogenesis. Firstly, the most variable genes
+were sorted based on the coefficient of variance. Then, Silhouette width analyzed classified patients into different subtypes and then heatmap analysis was performed to study
+these subtypes. These lists were dominated by cancerassociated entries and highlighted crucial genes and pathways that can be targeted for designing more specific therapeutics.
+ Lung adenocarcinoma (LUAD) and lung squamous cell
+carcinoma (LUSC) are two common subtypes of NSCLC,
+and despite the fact that both occur in lung tissues, these two
+subtypes show a number of different pathological characteristics. To investigate the differences and seek potential
+therapeutic targets, Liu et al. [129] used bioinformatics
+methods to analyze RNA-Seq data from different aspects.
+Analysis pipeline of this study is as follows: RNA-Seq data
+were collected from TCGA, and log- fold change and t values were calculated from normalization counts. Differential
+expression genes were analysed by linear regression model
+and classified; enrichment analysis was then applied to these
+data sets using GSEA. Correlation analysis was used to investigate the different biological mechanisms in LUAD and
+LUSC. Independent data set was used to validate the results.
+The same pipeline can be used to other cancers to find potential therapeutic targets of different subtypes.
+ Lee et al. [61] developed a machine learning approach to
+integrate big data for precision medicine in acute myeloid
+leukemia. This study presents MERGE (mutation, expression
+hubs, known regulators, genomic CNV, and methylation)
+algorithm, a novel computational method that identifies reliable gene expression markers using a principled way of integrating multi-omic prior information relevant to disease
+processes. MERGE learns from data how much each of the
+following driver features contributes to genes’ potentials to
+drive cancer progression: (1) mutations based on the AML
+study from TCGA, (2) hubness in a gene expression network
+inferred from publicly available expression data sets, (3) the
+gene’s known regulatory role based on gene annotation databases, (4) genomic CNV status based on the AML study
+from TCGA, and (5) methylation status based on the AML
+study from TCGA. The integration of multi-omics data in
+this study identified molecular markers and predicted drug
+sensitivity accurately. SMARCA4 was validated as a molecular marker and driver of sensitivity to topoisomerase II
+inhibitors, mitoxantrone and etoposide.
+ Emad et al. [130] developed a computational knowledgeguided method ProGENI to identify genes associated with
+the variation of drug response across different individuals,
+based on gene expression data. This study discovers the relationship between gene expression and drug response by incorporating a network of protein-protein interactions (PPIs)
+and genetic interactions.
+ Resistance to therapy remains a major cause of the failure
+of cancer treatment. As a robust system, cancer has the fundamental ability to survive toxic anticancer drug treatments
+or a stressful environment, mainly due to its mechanisms of
+redundancy. Consequently, inhibition of a single component
+or pathway would probably not constitute a successful cancer therapy. In this case, network theory and methodologies 
+Bioinformatics Approaches for Anti-cancer Drug Discovery Current Drug Targets, 2020, Vol. 21, No. 1 11
+are often helpful. Lavi et al. [131] developed a computational method to study the mechanisms of redundancy based
+on both gene and pathway co-expression networks, using
+data from gene expression profiles of hepatocellular carcinoma (HCC) of patients with varying degrees of responsiveness.
+ In addition, some studies predict the drug sensitivity using clinically relevant in vitro models and patient-derived
+data as inputs to supervised learning techniques. For instance, Daemen et al. [132] generated drug sensitivity data
+for 138 drugs and molecular profiles from 70 cell lines in
+breast cancer, which were used to train models for classifying samples into two categories: good and poor treatment
+responders. Then, using independent patient-derived data,
+they validated their model on two drugs used for treating
+breast cancers (tamoxifen and valproic acid). Chen et al.
+[133] showed the potential relevance of a 61-transcript expression signature for predicting a patient’s response to
+platinum-taxane chemotherapy. More specifically, the model
+accurately assigned patients to poor and good survival
+groups. Another distinguishing feature of this study was the
+relatively large amounts of independent patient data used for
+model training (data from TCGA) and testing (eight data sets
+from different studies). Song et al. [134] analyzed the association of PD-L1 expression with clinicopathologic characteristics, including gender, age, histological subtype, smoking history, stage, and genotype. The analysis showed that
+the PD-L1 expression was associated with advanced stage,
+lymph node (LN) metastasis, solid predominant subtype and
+wild-type epidermal growth factor receptor (EGFR) gene.
+Then, they performed multivariate analysis for overall survival (OS) by Cox hazard proportion model, revealing that
+patients with EGFR gene mutations and early stage had
+longer survival, while PD-L1 expression was not associated
+with the overall survival. This study may provide some guidance for the use of PD-L1 inhibitors. Selvaraj et al. [135]
+assessed the relationship between the expression of TIMP-1
+and NSCLC patient survival, indicating that high expression
+levels of TIMP-1 are correlated with poor prognosis in patients with NSCLC. So TIMP-1 may be a possible therapeutic target. This conclusion may help in clinical guidance.
+4.4. Drug Combinations
+ Drug combinations have been proposed as a promising
+therapeutic strategy to overcome drug resistance and improve the efficacy of monotherapy regimens in cancer [136].
+The combined regimens are helpful in overcoming complex
+diseases by targeting multiple components. In clinic, combination of two or more drugs has been tested to control tumor
+growth in patients whose tumors are resistant to monotherapies [27]. However, in vitro and in vivo screening of many
+drug combinations are not practical, resulting from both the
+large number of drug pairs as well as dosage combinations.
+During the past decade, computational approaches have been
+developed to overcome the limited throughput of experimental testing [62, 137].
+ Cheng et al. [62] proposed a network-based methodology
+to identify clinically efficacious drug combinations for cancer. By quantifying the network-based relationship between
+drug targets and disease proteins in the human proteinprotein interactome, the authors showed the existence of six
+distinct classes of drug–drug-disease combinations. Relying
+on approved drug combinations for hypertension and cancer,
+they found that only one of the six classes correlated with
+therapeutic effects: if the targets of the drugs both hit the
+disease module, but target separate neighborhoods. This
+finding provides a generic, powerful network methodology
+to identify efficacious combination therapies in drug development, suggesting that the discovery of drug combinations
+could benefit from network-based screenings, exploring the
+relationship between drug-target modules and the disease
+modules via network proximity in the human interactome.
+ Crosstalk between signaling pathways is a critical aspect
+of tumor signaling transduction pathways that allows cancer
+cells to survive and acquire resistance to targeted therapy and
+personalized treatment, rendering the given treatment strategy ineffective. Optimal drug combinations targeting a cancer patient’s alternative driver signaling networks, especially
+the crosstalk between networks, is predicted to better combat
+resistance progression encountered in chemotherapy or targeted therapy [138]. Huang et al. [33] developed DrugComboExplorer, a computational systems biology tool using networks as a biomarker to predict synergistic drug combinations by evaluating combinatorial drug-induced targeting
+effects on alternative and complementary driver signaling
+pathways. This tool generates driver signaling networks by
+processing DNA sequencing, gene copy number, DNA
+methylation and RNA-seq data from individual cancer patients using an integrated pipeline of algorithms, including
+bootstrap aggregating-based Markov random field, weighted
+co-expression network analysis and supervised regulatory
+network learning. It uses a systems pharmacology approach
+to infer combinatorial drug efficacies and synergy mechanisms through drug functional module-induced regulation of
+target expression analysis. Application of this tool on diffuse
+large B-cell lymphoma and prostate cancer demonstrated
+how synergistic drug combinations can be discovered to inhibit multiple driver signaling pathways.
+ By integrating transcriptomics-based CMap database and
+network centrality, Regan-Fendt et al. [34] developed a
+computational approach, SynGeNet (Synergy from Gene
+expression and Network mining), to analyze disease networks and predict drug combinations. SynGeNet approach
+was applied to generate drug combination predictions for
+each of the four major genomic subtypes of melanoma
+(BRAF, NRAS, NF1, and triple wild type) using publicly
+available gene expression and mutation data. Using results
+from a high-throughput drug screening study, the authors
+validated synergistic drug combinations predicted by SynGeNet. The result showed that the drug combination of vemurafenib (BRAF inhibitor) + tretinoin (retinoic acid receptor agonist) was efficient for BRAF-mutant melanoma.
+ High-throughput omics data hold the potential to elucidate the complex functionality of cancer cells. Among these
+data, transcriptomic profiles [139, 140], interaction networks
+at the genomic and proteomic levels [141, 142], as well as
+biological pathways [139], have already been used to predict
+the efficacy of drug combinations. For example, Lee et al.
+applied a CMap-based approach to the prediction of drug
+combinations [142]. The authors assumed that the combina-
+12 Current Drug Targets, 2020, Vol. 21, No. 1 Li et al.
+tion of two drugs, regulating two different disease-specific
+pathways, can be synergistic. First, a ‘query signature’, that
+is a list of genes the expression of which is significantly associated with a disease state, is provided and highly enriched
+pathways in the query signature are identified by performing
+gene set enrichment analysis. Next, gene expression pattern
+matching is performed to measure the similarity between the
+query signature and drug perturbation profiles in CMap. For
+each identified pathway, enrichment analysis was performed
+on the CMap drug profiles, and the drugs were ordered accordingly.
+ However, a major consequence of polypharmacy is the
+increased risk of side effects for patients. Polypharmacy side
+effects are caused by drug-drug interactions, in which the
+activity of one drug may change in a favorable or unfavorable
+way if taken in combination with another drug. Zitnik et al.
+[101] proposed a machine learning model Decagon for predicting polypharmacy side effects. The method constructs
+multimodal diagrams of protein-protein interactions, drugprotein target interactions, and polypharmacy interactions
+represented as drug-drug interactions, where each side effect
+is a different type of edge. Decagon opens the opportunity to
+use large pharmacogenomic and patient population data to
+label and prioritize polypharmacy side effects for subsequent
+analysis via formal pharmacological studies.
+5. CHALLENGES AND FUTURE PERSPECTIVES
+ In the above sections, we summarized the bioinformatics
+approaches for anti-cancer drug discovery. We mainly discussed the applications of these approaches in four aspects:
+drug design, drug repositioning, precise cancer therapy and
+drug combinations prediction. It is obvious that the generation of a massive amount of multi-omics data provides great
+opportunities for efficient and accurate anti-cancer drug discovery with low cost. Although there has been a remarkable
+progress in the performance of predictive approaches, there
+are still many challenges in practice.
+ Firstly, many existing computational studies are based on
+the integration of prior knowledge such as PPI networks and
+biological pathways. However, the prior data are still highly
+sparse [143, 144], limiting the integrality and accuracy of
+computational prediction. Moreover, further research on the
+context-specific therapies on drug response prediction is also
+needed [145, 146]. To date, prediction models have been
+primarily based on pan-cancer data analyses, which do not
+consider such context specificity owing to the relatively
+small data sets available for specific tissues or drugs [147].
+Differences in molecular profiles of the cancer cell lines between tumor types are among the important factors for further predictions of certain cancer types.
+ In addition, most of the developed predictive methods for
+drug discovery rely on the molecular profiles of cancer cell
+lines such as transcriptomic profiles [139, 148]. However, it
+has been shown that cancer cell lines do not fully recapitulate the molecular aberrations observed in patients [149].
+Bioinformaticians should be well informed about the limitations of cell lines for clinically relevant research. Moreover,
+the methods relying on sparser data types, such as CMapbased models for which the data are only available for few
+cell lines in restricted tissue types, make the models less extensible and practical in clinical settings [150]. The selection
+of cell lines that poorly reflect tumor biology, and the lack of
+sufficient cell lines for modeling response in specific cancers, are the main reasons for the failure of computational
+drug discovery [151].
+ The above limitations of computational approaches to
+drug discovery might be potentially resolved through the
+following strategies. Firstly, computational predictive models that rely on data types with more similarity between in
+vitro setting and patients as well as less dependent on the
+data types would increase the applicability of the models in
+clinical practice. Secondly, combination of multiple independent data sets has the potential to develop more accurate
+predictive models. Thirdly, there is still a need for model
+validations using clinically relevant animal models and patient data. Finally, the most important way for translation to
+clinic is that integrating the clinical data might be more useful for predicting cancer drug for the clinical purpose, which
+might be achieved through collaborations with clinicians.
+6. AUTHORS INSIGHT ON THE TOPIC
+ Bioinformatics approaches have become more essential
+in anti-cancer drug discovery in both academia and the
+pharmaceutical industry. Computational methodologies, such
+as biological network analysis, machine learning and multiomics integrated analysis, play important roles in almost
+every aspect of anti-cancer drug discovery, including drug
+design, drug repositioning, precise cancer therapy and drug
+combinations prediction. The generation of massive amount
+of multi-omics data and bioinformatics approaches makes it
+possible to discover anti-cancer drugs more efficiently and
+accurately with low cost. However, although there has been a
+remarkable progress in the performance of predictive approaches, there are still many challenges in practice. The
+sparseness of prior data and lack of accessible clinical information limit the integrality and accuracy of computational
+prediction. Furthermore, the drugs identified by computational approaches need to be experimentally validated.
+Therefore, an interdisciplinary collaboration between experts
+from different fields will help increase the applicability of
+the computational models in clinical practice.
+CONCLUSION
+ In summary, in the era of precision medicine and big
+data, bioinformatics approaches that integrate multi-omics
+data and the clinical information of cancer patients will help
+in efficient and accurate anti-cancer drug discovery with low
+cost, and direct the precise drug selection. To improve the
+usefulness of computational approaches, an interdisciplinary
+collaboration, facilitating knowledge exchange among several different field experts, including bioinformaticians, biochemists, geneticists, molecular and cell biologists, pharmacologists as well as clinicians helps increase the applicability
+of the computational models in clinical practice.
+CONSENT FOR PUBLICATION
+ Not applicable. 
+Bioinformatics Approaches for Anti-cancer Drug Discovery Current Drug Targets, 2020, Vol. 21, No. 1 13
+FUNDING
+ This work is supported by the grants from the Key Research Area Grant 2016YFA0501703 of the Ministry of Science and Technology of China, the National Natural Science
+Foundation of China (Contract no. 61832019, 61503244),
+the State Key Lab of Microbial Metabolism and Joint Research Funds for Medical and Engineering and Scientific
+Research at Shanghai Jiao Tong University (YG2017ZD14).
+CONFLICT OF INTEREST
+ The authors declare no conflict of interest, financial or
+otherwise.
+ACKNOWLEDGEMENTS
+ Declared none.
+REFERENCES
+[1] Sullivan LB, Gui DY, Vander Heiden MG. Altered metabolite
+levels in cancer: implications for tumour biology and cancer therapy. Nat Rev Cancer 2016; 16(11): 680-93.
+ [http://dx.doi.org/10.1038/nrc.2016.85] [PMID: 27658530]
+[2] Khotskaya YB, Mills GB, Mills Shaw KR. Next-Generation Sequencing and Result Interpretation in Clinical Oncology: Challenges of Personalized Cancer Therapy. Annu Rev Med 2017; 68:
+113-25.
+[http://dx.doi.org/10.1146/annurev-med-102115-021556] [PMID:
+27813876]
+[3] Valkenburg KC, de Groot AE, Pienta KJ. Targeting the tumour
+stroma to improve cancer therapy. Nat Rev Clin Oncol 2018; 15(6):
+366-81.
+ [http://dx.doi.org/10.1038/s41571-018-0007-1] [PMID: 29651130]
+[4] Rosenblum D, Joshi N, Tao W, Karp JM, Peer D. Progress and
+challenges towards targeted delivery of cancer therapeutics. Nat
+Commun 2018; 9(1): 1410.
+[http://dx.doi.org/10.1038/s41467-018-03705-y] [PMID:
+29650952]
+[5] Waitkus MS, Diplas BH, Yan H. Biological Role and Therapeutic
+Potential of IDH Mutations in Cancer. Cancer Cell 2018; 34(2):
+186-95.
+ [http://dx.doi.org/10.1016/j.ccell.2018.04.011] [PMID: 29805076]
+[6] Saeed K, Rahkama V, Eldfors S, et al. Comprehensive Drug Testing of Patient-derived Conditionally Reprogrammed Cells from
+Castration-resistant Prostate Cancer. Eur Urol 2017; 71(3): 319-27.
+[http://dx.doi.org/10.1016/j.eururo.2016.04.019] [PMID:
+27160946]
+[7] Senkowski W, Jarvius M, Rubin J, et al. Large-Scale Gene Expression Profiling Platform for Identification of Context-Dependent
+Drug Responses in Multicellular Tumor Spheroids. Cell Chem Biol
+2016; 23(11): 1428-38.
+[http://dx.doi.org/10.1016/j.chembiol.2016.09.013] [PMID:
+27984028]
+[8] Raynal NJ, Da Costa EM, Lee JT, et al. Repositioning FDAApproved Drugs in Combination with Epigenetic Drugs to Reprogram Colon Cancer Epigenome. Mol Cancer Ther 2017; 16(2):
+397-407.
+[http://dx.doi.org/10.1158/1535-7163.MCT-16-0588] [PMID:
+27980103]
+[9] Park SI, Kim SJ, McCauley LK, Gallick GE. 2010.Pre-clinical
+mouse models of human prostate cancer and their utility in drug
+discovery. In: Curr Protoc Pharmacol. Chapter 14:Unit 14 15
+ [http://dx.doi.org/10.1002/0471141755.ph1415s51]
+[10] Nishiguchi A, Matsusaki M, Kano MR, et al. In vitro 3D
+blood/lymph-vascularized human stromal tissues for preclinical assays of cancer metastasis. Biomaterials 2018; 179: 144-55.
+[http://dx.doi.org/10.1016/j.biomaterials.2018.06.019] [PMID:
+29986232]
+[11] Cheng F, Liang H, Butte AJ, Eng C, Nussinov R. Personal mutanomes meet modern oncology drug discovery and precision health.
+Pharmacol Rev 2019; 71(1): 1-19.
+ [http://dx.doi.org/10.1124/pr.118.016253] [PMID: 30545954]
+[12] Sliwoski G, Kothiwale S, Meiler J, Lowe EW Jr. Computational
+methods in drug discovery. Pharmacol Rev 2013; 66(1): 334-95.
+ [http://dx.doi.org/10.1124/pr.112.007336] [PMID: 24381236]
+[13] Kuruvilla FG, Shamji AF, Sternson SM, Hergenrother PJ, Schreiber SL. Dissecting glucose signalling with diversity-oriented synthesis and small-molecule microarrays. Nature 2002; 416(6881):
+653-7.
+ [http://dx.doi.org/10.1038/416653a] [PMID: 11948353]
+[14] Argelaguet R, Velten B, Arnol D, et al. Multi-Omics Factor Analysis-a framework for unsupervised integration of multi-omics data
+sets. Mol Syst Biol 2018; 14(6)e8124
+ [http://dx.doi.org/10.15252/msb.20178124] [PMID: 29925568]
+[15] Bakker OB, Aguirre-Gamboa R, Sanna S, et al. Integration of
+multi-omics data and deep phenotyping enables prediction of cytokine responses. Nat Immunol 2018; 19(7): 776-86.
+ [http://dx.doi.org/10.1038/s41590-018-0121-3] [PMID: 29784908]
+[16] Hasin Y, Seldin M, Lusis A. Multi-omics approaches to disease.
+Genome Biol 2017; 18(1): 83.
+ [http://dx.doi.org/10.1186/s13059-017-1215-1] [PMID: 28476144]
+[17] Turanli B, Karagoz K, Gulfidan G, Sinha R, Mardinoglu A, Arga
+KY. A network-based cancer drug discovery: From integrated
+multi-omics approaches to precision medicine. Curr Pharm Des
+2018; 24(32): 3778-90.
+[http://dx.doi.org/10.2174/1381612824666181106095959] [PMID:
+30398107]
+[18] Huang G, Li J, Wang P, Li W. A review of computational drug
+repositioning approaches. Comb Chem High Throughput Screen
+2017.
+[http://dx.doi.org/10.2174/1386207321666171221112835] [PMID:
+29268682]
+[19] Li J, Zheng S, Chen B, Butte AJ, Swamidass SJ, Lu Z. A survey of
+current trends in computational drug repositioning. Brief Bioinform
+2016; 17(1): 2-12.
+ [http://dx.doi.org/10.1093/bib/bbv020] [PMID: 25832646]
+[20] Fry RC, Svensson JP, Valiathan C, et al. Genomic predictors of
+interindividual differences in response to DNA damaging agents.
+Genes Dev 2008; 22(19): 2621-6.
+ [http://dx.doi.org/10.1101/gad.1688508] [PMID: 18805990]
+[21] Rice SD, Heinzman JM, Brower SL, et al. Analysis of chemotherapeutic response heterogeneity and drug clustering based on mechanism of action using an in vitro assay. Anticancer Res 2010; 30(7):
+2805-11.
+ [PMID: 20683016]
+[22] Bosquet JG, Marchion DC, Chon H, Lancaster JM, Chanock S.
+Analysis of chemotherapeutic response in ovarian cancers using
+publicly available high-throughput data. Cancer Res 2014; 74(14):
+3902-12.
+[http://dx.doi.org/10.1158/0008-5472.CAN-14-0186] [PMID:
+24848511]
+[23] Sboner A, Elemento O. A primer on precision medicine informatics. Brief Bioinform 2016; 17(1): 145-53.
+ [http://dx.doi.org/10.1093/bib/bbv032] [PMID: 26048401]
+[24] Mitra AK, Mukherjee UK, Harding T, et al. Single-cell analysis of
+targeted transcriptome predicts drug sensitivity of single cells
+within human myeloma tumors. Leukemia 2016; 30(5): 1094-102.
+ [http://dx.doi.org/10.1038/leu.2015.361] [PMID: 26710886]
+[25] Scherf U, Ross DT, Waltham M, et al. A gene expression database
+for the molecular pharmacology of cancer. Nat Genet 2000; 24(3):
+236-44.
+ [http://dx.doi.org/10.1038/73439] [PMID: 10700175]
+[26] Sun X, Vilar S, Tatonetti NP. High-throughput methods for combinatorial drug discovery. Sci Transl Med 2013; 5(205)205rv1
+[http://dx.doi.org/10.1126/scitranslmed.3006667] [PMID:
+24089409]
+[27] Jia J, Zhu F, Ma X, et al. Mechanisms of drug combinations: interaction and network perspectives. Nat Rev Drug Discov 2009; 8(2):
+111-28.
+ [http://dx.doi.org/10.1038/nrd2683] [PMID: 19180105]
+[28] Yap TA, Omlin A, de Bono JS. Development of therapeutic combinations targeting major cancer signaling pathways. J Clin Oncol
+2013; 31(12): 1592-605.
+ [http://dx.doi.org/10.1200/JCO.2011.37.6418] [PMID: 23509311]
+[29] Crystal AS, Shaw AT, Sequist LV, et al. Patient-derived models of
+acquired resistance can identify effective drug combinations for
+cancer. Science 2014; 346(6216): 1480-6.
+ [http://dx.doi.org/10.1126/science.1254721] [PMID: 25394791] 
+14 Current Drug Targets, 2020, Vol. 21, No. 1 Li et al.
+[30] Kauko O, O’Connor CM, Kulesskiy E, et al. PP2A inhibition is a
+druggable MEK inhibitor resistance mechanism in KRAS-mutant
+lung cancer cells. Sci Transl Med 2018; 10(450)eaaq1093
+[http://dx.doi.org/10.1126/scitranslmed.aaq1093] [PMID:
+30021885]
+[31] Lipinski C, Hopkins A. Navigating chemical space for biology and
+medicine. Nature 2004; 432(7019): 855-61.
+ [http://dx.doi.org/10.1038/nature03193] [PMID: 15602551]
+[32] Du D, Chang CH, Wang Y, et al. Response envelope analysis for
+quantitative evaluation of drug combinations. Bioinformatics
+2019.btz091
+[http://dx.doi.org/10.1093/bioinformatics/btz091] [PMID:
+30851108]
+[33] Huang L, Brunell D, Stephan C, et al. Driver Network as a Biomarker: Systematic integration and network modeling of multiomics data to derive driver signaling pathways for drug combination prediction. Bioinformatics 2019.btz109
+[http://dx.doi.org/10.1093/bioinformatics/btz109] [PMID:
+30768150]
+[34] Regan-Fendt KE, Xu J, DiVincenzo M, et al. Synergy from gene
+expression and network mining (SynGeNet) method predicts synergistic drug combinations for diverse melanoma genomic subtypes. NPJ Syst Biol Appl 2019; 5: 6.
+ [http://dx.doi.org/10.1038/s41540-019-0085-4] [PMID: 30820351]
+[35] Sheng Z, Sun Y, Yin Z, Tang K, Cao Z. Advances in computational approaches in identifying synergistic drug combinations.
+Brief Bioinform 2018; 19(6): 1172-82.
+ [http://dx.doi.org/10.1093/bib/bbx047] [PMID: 28475767]
+[36] Patel MN, Halling-Brown MD, Tym JE, Workman P, Al-Lazikani
+B. Objective assessment of cancer genes for drug discovery. Nat
+Rev Drug Discov 2013; 12(1): 35-50.
+ [http://dx.doi.org/10.1038/nrd3913] [PMID: 23274470]
+[37] McKusick VA. Mendelian Inheritance in Man and its online version, OMIM. Am J Hum Genet 2007; 80(4): 588-604.
+ [http://dx.doi.org/10.1086/514346] [PMID: 17357067]
+[38] Amberger JS, Bocchini CA, Schiettecatte F, Scott AF, Hamosh A.
+OMIM.org: Online Mendelian Inheritance in Man (OMIM®), an
+online catalog of human genes and genetic disorders. Nucleic Acids
+Res 2015; 43(Database issue): D789-98.
+ [http://dx.doi.org/10.1093/nar/gku1205] [PMID: 25428349]
+[39] Becker KG, Barnes KC, Bright TJ, Wang SA. The genetic association database. Nat Genet 2004; 36(5): 431-2.
+ [http://dx.doi.org/10.1038/ng0504-431] [PMID: 15118671]
+[40] MacArthur J, Bowler E, Cerezo M, et al. The new NHGRI-EBI
+Catalog of published genome-wide association studies (GWAS
+Catalog). Nucleic Acids Res 2017; 45(D1): D896-901.
+ [http://dx.doi.org/10.1093/nar/gkw1133] [PMID: 27899670]
+[41] Piñero J, Bravo À, Queralt-Rosinach N, et al. DisGeNET: a comprehensive platform integrating information on human diseaseassociated genes and variants. Nucleic Acids Res 2017; 45(D1):
+D833-9.
+ [http://dx.doi.org/10.1093/nar/gkw943] [PMID: 27924018]
+[42] Piñero J, Queralt-Rosinach N, Bravo À, et al. DisGeNET: a discovery platform for the dynamical exploration of human diseases
+and their genes. Database (Oxford) 2015; 2015bav028
+ [http://dx.doi.org/10.1093/database/bav028] [PMID: 25877637]
+[43] Brennan CW, Verhaak RG, McKenna A, et al. TCGA Research
+Network. The somatic genomic landscape of glioblastoma. Cell
+2013; 155(2): 462-77.
+ [http://dx.doi.org/10.1016/j.cell.2013.09.034] [PMID: 24120142]
+[44] Edgar R, Domrachev M, Lash AE. Gene Expression Omnibus:
+NCBI gene expression and hybridization array data repository. Nucleic Acids Res 2002; 30(1): 207-10.
+ [http://dx.doi.org/10.1093/nar/30.1.207] [PMID: 11752295]
+[45] Barrett T, Wilhite SE, Ledoux P, et al. NCBI GEO: archive for
+functional genomics data sets--update. Nucleic Acids Res 2013;
+41(Database issue): D991-5.
+ [http://dx.doi.org/10.1093/nar/gks1193] [PMID: 23193258]
+[46] Wishart DS, Knox C, Guo AC, et al. DrugBank: a comprehensive
+resource for in silico drug discovery and exploration. Nucleic Acids
+Res 2006; 34(Database issue): D668-72.
+ [http://dx.doi.org/10.1093/nar/gkj067] [PMID: 16381955]
+[47] Wishart DS, Knox C, Guo AC, et al. DrugBank: a knowledgebase
+for drugs, drug actions and drug targets. Nucleic Acids Res 2008;
+36(Database issue): D901-6.
+ [http://dx.doi.org/10.1093/nar/gkm958] [PMID: 18048412]
+[48] Law V, Knox C, Djoumbou Y, et al. DrugBank 4.0: shedding new
+light on drug metabolism. Nucleic Acids Res 2014; 42(Database issue): D1091-7.
+ [http://dx.doi.org/10.1093/nar/gkt1068] [PMID: 24203711]
+[49] Li YH, Yu CY, Li XX, et al. Therapeutic target database update
+2018: enriched resource for facilitating bench-to-clinic research of
+targeted therapeutics. Nucleic Acids Res 2018; 46(D1): D1121-7.
+ [http://dx.doi.org/10.1093/nar/gkx1076] [PMID: 29140520]
+[50] Chen X, Ji ZL, Chen YZ. TTD: Therapeutic Target Database. Nucleic Acids Res 2002; 30(1): 412-5.
+ [http://dx.doi.org/10.1093/nar/30.1.412] [PMID: 11752352]
+[51] Whirl-Carrillo M, McDonagh EM, Hebert JM, et al. Pharmacogenomics knowledge for personalized medicine. Clin Pharmacol Ther
+2012; 92(4): 414-7.
+ [http://dx.doi.org/10.1038/clpt.2012.96] [PMID: 22992668]
+[52] Mangal M, Sagar P, Singh H, Raghava GP, Agarwal SM. NPACT:
+Naturally Occurring Plant-based Anti-cancer Compound-ActivityTarget database. Nucleic Acids Res 2013; 41(Database issue):
+D1124-9.
+ [http://dx.doi.org/10.1093/nar/gks1047] [PMID: 23203877]
+[53] Subramanian A, Narayan R, Corsello SM, et al. A next generation
+connectivity map: L1000 Platform and the First 1,000,000 Profiles
+Cell 2017; 171(6): 1437-52.
+ [http://dx.doi.org/10.1016/j.cell.2017.10.049]
+[54] Lamb J, Crawford ED, Peck D, et al. The Connectivity Map: using
+gene-expression signatures to connect small molecules, genes, and
+disease. Science 2006; 313(5795): 1929-35.
+ [http://dx.doi.org/10.1126/science.1132939] [PMID: 17008526]
+[55] Barretina J, Caponigro G, Stransky N, et al. The Cancer Cell Line
+Encyclopedia enables predictive modelling of anticancer drug sensitivity. Nature 2012; 483(7391): 603-7.
+ [http://dx.doi.org/10.1038/nature11003] [PMID: 22460905]
+[56] Barretina J, Caponigro G, Stransky N, et al. Addendum: The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity. Nature 2019; 565(7738): E5-6.
+ [http://dx.doi.org/10.1038/s41586-018-0722-x] [PMID: 30559381]
+[57] Cancer Cell Line Encyclopedia C. Pharmacogenomic agreement
+between two cancer cell line data sets. Nature 2015; 528(7580): 84-
+7.
+ [http://dx.doi.org/10.1038/nature15736] [PMID: 26570998]
+[58] Shoemaker RH. The NCI60 human tumour cell line anticancer drug
+screen. Nat Rev Cancer 2006; 6(10): 813-23.
+ [http://dx.doi.org/10.1038/nrc1951] [PMID: 16990858]
+[59] Abaan OD, Polley EC, Davis SR, et al. The exomes of the NCI-60
+panel: a genomic resource for cancer biology and systems pharmacology. Cancer Res 2013; 73(14): 4372-82.
+[http://dx.doi.org/10.1158/0008-5472.CAN-12-3342] [PMID:
+23856246]
+[60] Sachlos E, Risueño RM, Laronde S, et al. Identification of drugs
+including a dopamine receptor antagonist that selectively target
+cancer stem cells. Cell 2012; 149(6): 1284-97.
+ [http://dx.doi.org/10.1016/j.cell.2012.03.049] [PMID: 22632761]
+[61] Lee SI, Celik S, Logsdon BA, et al. A machine learning approach
+to integrate big data for precision medicine in acute myeloid leukemia. Nat Commun 2018; 9(1): 42.
+[http://dx.doi.org/10.1038/s41467-017-02465-5] [PMID:
+29298978]
+[62] Cheng F, Kovács IA, Barabási AL. Network-based prediction of
+drug combinations. Nat Commun 2019; 10(1): 1197.
+[http://dx.doi.org/10.1038/s41467-019-09186-x] [PMID:
+30867426]
+[63] Selvaraj G, Kaliamurthi S, Kaushik AC, et al. Identification of
+target gene and prognostic evaluation for lung adenocarcinoma using gene expression meta-analysis, network analysis and neural
+network algorithms. J Biomed Inform 2018; 86: 120-34.
+ [http://dx.doi.org/10.1016/j.jbi.2018.09.004] [PMID: 30195659]
+[64] Amberger J, Bocchini C, Hamosh A. A new face and new challenges for Online Mendelian Inheritance in Man (OMIM®). Hum
+Mutat 2011; 32(5): 564-7.
+ [http://dx.doi.org/10.1002/humu.21466] [PMID: 21472891]
+[65] Forbes SA, Bindal N, Bamford S, et al. COSMIC: mining complete
+cancer genomes in the Catalogue of Somatic Mutations in Cancer.
+Nucleic Acids Res 2011; 39(Database issue): D945-50.
+ [http://dx.doi.org/10.1093/nar/gkq929] [PMID: 20952405]
+[66] Forbes SA, Bhamra G, Bamford S, et al. The catalogue of somatic
+mutations in cancer (COSMIC). In: Curr Protoc Hum Genet Chap-
+Bioinformatics Approaches for Anti-cancer Drug Discovery Current Drug Targets, 2020, Vol. 21, No. 1 15
+ter 10:Unit 10 11. 2008.
+ [http://dx.doi.org/1002/0471142905.hg1011s57]
+[67] Forbes SA, Tang G, Bindal N, et al. COSMIC (the Catalogue of
+Somatic Mutations in Cancer): a resource to investigate acquired
+mutations in human cancer. Nucleic Acids Res 2010; 38(Database
+issue): D652-7.
+ [http://dx.doi.org/10.1093/nar/gkp995] [PMID: 19906727]
+[68] Forbes S, Clements J, Dawson E, et al. Cosmic 2005. Br J Cancer
+2006; 94(2): 318-22.
+ [http://dx.doi.org/10.1038/sj.bjc.6602928] [PMID: 16421597]
+[69] Bamford S, Dawson E, Forbes S, et al. The COSMIC (Catalogue of
+Somatic Mutations in Cancer) database and website. Br J Cancer
+2004; 91(2): 355-8.
+ [http://dx.doi.org/10.1038/sj.bjc.6601894] [PMID: 15188009]
+[70] Landrum MJ, Lee JM, Riley GR, et al. ClinVar: public archive of
+relationships among sequence variation and human phenotype. Nucleic Acids Res 2014; 42(Database issue): D980-5.
+ [http://dx.doi.org/10.1093/nar/gkt1113] [PMID: 24234437]
+[71] Daneshjou R, Zappala Z, Kukurba K, et al. PATH-SCAN: a reporting tool for identifying clinically actionable variants. Pac Symp
+Biocomput 2014; 229-40.
+ [PMID: 24297550]
+[72] Cancer Genome Atlas Research Network. Comprehensive genomic
+characterization defines human glioblastoma genes and core pathways. Nature 2008; 455(7216): 1061-8.
+ [http://dx.doi.org/10.1038/nature07385] [PMID: 18772890]
+[73] Cancer Genome Atlas N. Cancer Genome Atlas Network. Comprehensive molecular portraits of human breast tumours. Nature 2012;
+490(7418): 61-70.
+ [http://dx.doi.org/10.1038/nature11412] [PMID: 23000897]
+[74] Ley TJ, Miller C, Ding L, et al. Cancer Genome Atlas Research
+Network. Genomic and epigenomic landscapes of adult de novo
+acute myeloid leukemia. N Engl J Med 2013; 368(22): 2059-74.
+ [http://dx.doi.org/10.1056/NEJMoa1301689] [PMID: 23634996]
+[75] Cancer Genome Atlas N. Cancer Genome Atlas Network. Genomic
+Classification of Cutaneous Melanoma. Cell 2015; 161(7): 1681-
+96.
+ [http://dx.doi.org/10.1016/j.cell.2015.05.044] [PMID: 26091043]
+[76] Robertson AG, Shih J, Yau C, et al. Integrative analysis identifies
+four molecular and clinical subsets in uveal melanoma. Cancer Cell
+2017; 32(2): 204-20.
+ [http://dx.doi.org/10.1016/j.ccell.2017.07.003]
+[77] Verhaak RG, Hoadley KA, Purdom E, et al. Cancer genome atlas
+research network. Integrated genomic analysis identifies clinically
+relevant subtypes of glioblastoma characterized by abnormalities in
+PDGFRA, IDH1, EGFR, and NF1. Cancer Cell 2010; 17(1): 98-
+110.
+ [http://dx.doi.org/10.1016/j.ccr.2009.12.020] [PMID: 20129251]
+[78] Noushmehr H, Weisenberger DJ, Diefes K, et al. Cancer genome
+atlas research network. Identification of a CpG island methylator
+phenotype that defines a distinct subgroup of glioma. Cancer Cell
+2010; 17(5): 510-22.
+ [http://dx.doi.org/10.1016/j.ccr.2010.03.017] [PMID: 20399149]
+[79] Osmanbeyoglu HU, Pelossof R, Bromberg JF, Leslie CS. Linking
+signaling pathways to transcriptional programs in breast cancer.
+Genome Res 2014; 24(11): 1869-80.
+ [http://dx.doi.org/10.1101/gr.173039.114] [PMID: 25183703]
+[80] Ichikawa H, Nagahashi M, Shimada Y, et al. Actionable genebased classification toward precision medicine in gastric cancer.
+Genome Med 2017; 9(1): 93.
+ [http://dx.doi.org/10.1186/s13073-017-0484-3] [PMID: 29089060]
+[81] Rinaldetti S, Rempel E, Worst TS, et al. Subclassification, survival
+prediction and drug target analyses of chemotherapy-naïve muscleinvasive bladder cancer with a molecular screening. Oncotarget
+2018; 9(40): 25935-45.
+ [http://dx.doi.org/10.18632/oncotarget.25407] [PMID: 29899832]
+[82] Luo B, Gu YY, Wang XD, Chen G, Peng ZG. Identification of
+potential drugs for diffuse large b-cell lymphoma based on bioinformatics and Connectivity Map database. Pathol Res Pract 2018;
+214(11): 1854-67.
+ [http://dx.doi.org/10.1016/j.prp.2018.09.013] [PMID: 30244948]
+[83] Kim IW, Jang H, Kim JH, Kim MG, Kim S, Oh JM. Computational
+drug repositioning for gastric cancer using reversal gene expression
+profiles. Sci Rep 2019; 9(1): 2660.
+[http://dx.doi.org/10.1038/s41598-019-39228-9] [PMID:
+30804389]
+[84] Hu G, Agarwal P. Human disease-drug network based on genomic
+expression profiles. PLoS One 2009; 4(8)e6536
+[http://dx.doi.org/10.1371/journal.pone.0006536] [PMID:
+19657382]
+[85] Kanehisa M, Furumichi M, Tanabe M, Sato Y, Morishima K.
+KEGG: new perspectives on genomes, pathways, diseases and
+drugs. Nucleic Acids Res 2017; 45(D1): D353-61.
+ [http://dx.doi.org/10.1093/nar/gkw1092] [PMID: 27899662]
+[86] Huang YJ, Hang D, Lu LJ, Tong L, Gerstein MB, Montelione GT.
+Targeting the human cancer pathway protein interaction network
+by structural genomics. Mol Cell Proteomics 2008; 7(10): 2048-60.
+[http://dx.doi.org/10.1074/mcp.M700550-MCP200] [PMID:
+18487680]
+[87] Creixell P, Reimand J, Haider S, et al. Mutation consequences and
+pathway analysis working group of the international cancer genome
+consortium. Pathway and network analysis of cancer genomes. Nat
+Methods 2015; 12(7): 615-21.
+ [http://dx.doi.org/10.1038/nmeth.3440] [PMID: 26125594]
+[88] Keshava Prasad TS, Goel R, Kandasamy K, et al. Human Protein
+Reference Database--2009 update. Nucleic Acids Res 2009;
+37(Database issue): D767-72.
+ [http://dx.doi.org/10.1093/nar/gkn892] [PMID: 18988627]
+[89] Oughtred R, Stark C, Breitkreutz BJ, et al. The BioGRID interaction database: 2019 update. Nucleic Acids Res 2019; 47(D1):
+D529-41.
+ [http://dx.doi.org/10.1093/nar/gky1079] [PMID: 30476227]
+[90] Szklarczyk D, Gable AL, Lyon D, et al. STRING v11: proteinprotein association networks with increased coverage, supporting
+functional discovery in genome-wide experimental datasets. Nucleic Acids Res 2019; 47(D1): D607-13.
+ [http://dx.doi.org/10.1093/nar/gky1131] [PMID: 30476243]
+[91] Hermjakob H, Montecchi-Palazzi L, Lewington C, et al. IntAct: an
+open source molecular interaction database. Nucleic Acids Res
+2004; 32(Database issue): D452-5.
+ [http://dx.doi.org/10.1093/nar/gkh052] [PMID: 14681455]
+[92] San Lucas FA, Fowler J, Chang K, Kopetz S, Vilar E, Scheet P.
+Cancer in silico drug discovery: a systems biology tool for identifying candidate drugs to target specific molecular tumor subtypes.
+Mol Cancer Ther 2014; 13(12): 3230-40.
+[http://dx.doi.org/10.1158/1535-7163.MCT-14-0260] [PMID:
+25349306]
+[93] Liu JX, Wang DQ, Zheng CH, Gao YL, Wu SS, Shang JL. Identifying drug-pathway association pairs based on L2,1-integrative penalized matrix decomposition. BMC Syst Biol 2017; 11(Suppl. 6):
+119.
+ [http://dx.doi.org/10.1186/s12918-017-0480-7] [PMID: 29297378]
+[94] Su R, Liu X, Xiao G, Wei L. Meta-GDBP: a high-level stacked
+regression model to improve anticancer drug response prediction.
+Brief Bioinform 2019.bbz022
+ [http://dx.doi.org/10.1093/bib/bbz022] [PMID: 30868164]
+[95] Hajjo R, Setola V, Roth BL, Tropsha A. Chemocentric informatics
+approach to drug discovery: identification and experimental validation of selective estrogen receptor modulators as ligands of 5-
+hydroxytryptamine-6 receptors and as potential cognition enhancers. J Med Chem 2012; 55(12): 5704-19.
+ [http://dx.doi.org/10.1021/jm2011657] [PMID: 22537153]
+[96] Smalley JL, Breda C, Mason RP, et al. Connectivity mapping uncovers small molecules that modulate neurodegeneration in
+Huntington’s disease models. J Mol Med (Berl) 2016; 94(2): 235-
+45.
+ [http://dx.doi.org/10.1007/s00109-015-1344-5] [PMID: 26428929]
+[97] Yang W, Soares J, Greninger P, et al. Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells. Nucleic Acids Res 2013; 41(Database issue):
+D955-61.
+ [http://dx.doi.org/10.1093/nar/gks1111] [PMID: 23180760]
+[98] Lee AC, Shedden K, Rosania GR, Crippen GM. Data mining the
+NCI60 to predict generalized cytotoxicity. J Chem Inf Model 2008;
+48(7): 1379-88.
+ [http://dx.doi.org/10.1021/ci800097k] [PMID: 18588283]
+[99] Gini G. QSAR: What Else? Methods Mol Biol 2018; 1800: 79-105.
+[http://dx.doi.org/10.1007/978-1-4939-7899-1_3] [PMID:
+29934888]
+[100] Cherkasov A, Muratov EN, Fourches D, et al. QSAR modeling:
+where have you been? Where are you going to? J Med Chem 2014;
+57(12): 4977-5010. 
+16 Current Drug Targets, 2020, Vol. 21, No. 1 Li et al.
+ [http://dx.doi.org/10.1021/jm4004285] [PMID: 24351051]
+[101] Zitnik M, Agrawal M, Leskovec J. Modeling polypharmacy side
+effects with graph convolutional networks. Bioinformatics 2018;
+34(13): i457-66.
+[http://dx.doi.org/10.1093/bioinformatics/bty294] [PMID:
+29949996]
+[102] Huang D, Lüthi U, Kolb P, et al. Discovery of cell-permeable nonpeptide inhibitors of beta-secretase by high-throughput docking and
+continuum electrostatics calculations. J Med Chem 2005; 48(16):
+5108-11.
+ [http://dx.doi.org/10.1021/jm050499d] [PMID: 16078830]
+[103] Ferrari S, Losasso V, Costi MP. Sequence-based identification of
+specific drug target regions in the thymidylate synthase enzyme
+family. ChemMedChem 2008; 3(3): 392-401.
+ [http://dx.doi.org/10.1002/cmdc.200700215] [PMID: 18270995]
+[104] Kaliamurthi S, Selvaraj G, Junaid M, Khan A, Gu K, Wei DQ.
+Cancer immunoinformatics: A promising era in the development of
+peptide vaccines for human papillomavirus-induced cervical cancer. Curr Pharm Des 2018; 24(32): 3791-817.
+[http://dx.doi.org/10.2174/1381612824666181106094133] [PMID:
+30398106]
+[105] Kaliamurthi S, Selvaraj G, Kaushik AC, Gu KR, Wei DQ. Designing of CD8+
+ and CD8+
+-overlapped CD4+
+ epitope vaccine by targeting late and early proteins of human papillomavirus. Biologics
+2018; 12: 107-25.
+ [http://dx.doi.org/10.2147/btt.S177901] [PMID: 30323556]
+[106] Kaliamurthi S, Selvaraj G, Chinnasamy S, et al. Exploring the
+papillomaviral proteome to identify potential candidates for a
+chimeric vaccine against cervix papilloma using immunomics
+and computational structural vaccinology. Viruses 2019; 11(1)
+E63
+ [http://dx.doi.org/10.3390/v11010063] [PMID: 30650527]
+[107] Wooller SK, Benstead-Hume G, Chen X, Ali Y, Pearl FMG. Bioinformatics in translational drug discovery. Biosci Rep 2017;
+37(4)BSR20160180
+ [http://dx.doi.org/10.1042/BSR20160180] [PMID: 28487472]
+[108] Le Guilloux V, Schmidtke P, Tuffery P. Fpocket: an open source
+platform for ligand pocket detection. BMC Bioinformatics 2009;
+10: 168.
+ [http://dx.doi.org/10.1186/1471-2105-10-168] [PMID: 19486540]
+[109] Hashemzadeh S, Ramezani F, Rafii-Tabar H. Study of molecular
+mechanism of the interaction between MEK1/2 and trametinib with
+docking and molecular dynamic simulation. Interdiscip Sci 2019;
+11(1): 115-24.
+ [http://dx.doi.org/10.1007/s12539-018-0305-4] [PMID: 30465279]
+[110] Kaushik AC, Gautam D, Nangraj AS, Wei DQ, Sahi S. Protection
+of primary dopaminergic midbrain neurons through impact of small
+molecules using virtual screening of GPR139 supported by molecular dynamic simulation and systems biology. Interdiscip Sci 2019;
+11(2): 247-57.
+[http://dx.doi.org/10.1007/s12539-019-00334-x] [PMID:
+31177377]
+[111] Tatonetti NP, Denny JC, Murphy SN, et al. Detecting drug interactions from adverse-event reports: interaction between paroxetine
+and pravastatin increases blood glucose levels. Clin Pharmacol
+Ther 2011; 90(1): 133-42.
+ [http://dx.doi.org/10.1038/clpt.2011.83] [PMID: 21613990]
+[112] Marstrand TT, Borup R, Willer A, et al. A conceptual framework
+for the identification of candidate drugs and drug targets in acute
+promyelocytic leukemia. Leukemia 2010; 24(7): 1265-75.
+ [http://dx.doi.org/10.1038/leu.2010.95] [PMID: 20508621]
+[113] Lv S, Xu Y, Chen X, et al. Prioritizing cancer therapeutic small
+molecules by integrating multiple OMICS datasets. OMICS 2012;
+16(10): 552-9.
+ [http://dx.doi.org/10.1089/omi.2012.0005] [PMID: 22917481]
+[114] Menden MP, Iorio F, Garnett M, et al. Machine learning prediction
+of cancer cell sensitivity to drugs based on genomic and chemical
+properties. PLoS One 2013; 8(4)e61318
+[http://dx.doi.org/10.1371/journal.pone.0061318] [PMID:
+23646105]
+[115] Snider J, Kotlyar M, Saraon P, Yao Z, Jurisica I, Stagljar I. Fundamentals of protein interaction network mapping. Mol Syst Biol
+2015; 11(12): 848.
+ [http://dx.doi.org/10.15252/msb.20156351] [PMID: 26681426]
+[116] Kibble M, Saarinen N, Tang J, Wennerberg K, Mäkelä S, Aittokallio T. Network pharmacology applications to map the unexplored
+target space and therapeutic potential of natural products. Nat Prod
+Rep 2015; 32(8): 1249-66.
+ [http://dx.doi.org/10.1039/C5NP00005J] [PMID: 26030402]
+[117] Menon RM, Badri PS, Wang T, et al. Drug-drug interaction profile
+of the all-oral anti-hepatitis C virus regimen of paritaprevir/ritonavir, ombitasvir, and dasabuvir. J Hepatol 2015; 63(1): 20-
+9.
+ [http://dx.doi.org/10.1016/j.jhep.2015.01.026] [PMID: 25646891]
+[118] Guney E, Menche J, Vidal M, Barábasi AL. Network-based in
+silico drug efficacy screening. Nat Commun 2016; 7: 10331.
+ [http://dx.doi.org/10.1038/ncomms10331] [PMID: 26831545]
+[119] Li T, Wernersson R, Hansen RB, et al. A scored human proteinprotein interaction network to catalyze genomic interpretation. Nat
+Methods 2017; 14(1): 61-4.
+ [http://dx.doi.org/10.1038/nmeth.4083] [PMID: 27892958]
+[120] Dhingra P, Martinez-Fundichely A, Berger A, et al. Identification
+of novel prostate cancer drivers using RegNetDriver: a framework
+for integration of genetic and epigenetic alterations with tissuespecific regulatory network. Genome Biol 2017; 18(1): 141.
+ [http://dx.doi.org/10.1186/s13059-017-1266-3] [PMID: 28750683]
+[121] Miao Y, Bhattacharya S, Edwards M, et al. Altering the threshold
+of an excitable signal transduction network changes cell migratory
+modes. Nat Cell Biol 2017; 19(4): 329-40.
+ [http://dx.doi.org/10.1038/ncb3495] [PMID: 28346441]
+[122] Yildirim MA, Goh KI, Cusick ME, Barabási AL, Vidal M. Drugtarget network. Nat Biotechnol 2007; 25(10): 1119-26.
+ [http://dx.doi.org/10.1038/nbt1338] [PMID: 17921997]
+[123] Iorio F, Saez-Rodriguez J, di Bernardo D. Network based elucidation of drug response: from modulators to targets. BMC Syst Biol
+2013; 7: 139.
+ [http://dx.doi.org/10.1186/1752-0509-7-139] [PMID: 24330611]
+[124] Gayvert KM, Dardenne E, Cheung C, et al. A Computational Drug
+Repositioning Approach for Targeting Oncogenic Transcription
+Factors. Cell Rep 2016; 15(11): 2348-56.
+ [http://dx.doi.org/10.1016/j.celrep.2016.05.037] [PMID: 27264179]
+[125] Wu C, Gudivada RC, Aronow BJ, Jegga AG. Computational drug
+repositioning through heterogeneous network clustering. BMC Syst
+Biol 2013; 7(Suppl. 5): S6.
+ [http://dx.doi.org/10.1186/1752-0509-7-S5-S6] [PMID: 24564976]
+[126] Wei DQ, Selvaraj G, Kaushik AC. Computational perspective on
+the current state of the methods and new challenges in cancer drug
+discovery. Curr Pharm Des 2018; 24(32): 3725-6.
+[http://dx.doi.org/10.2174/138161282432190109105339] [PMID:
+30675829]
+[127] Zeng X, Zhu S, Liu X, Zhou Y, Nussinov R, Cheng F. deepDR: A
+network-based deep learning approach to in silico drug repositioning. Bioinformatics 2019.btz418
+[http://dx.doi.org/10.1093/bioinformatics/btz418] [PMID:
+31116390]
+[128] Tomar AK, Agarwal R, Kundu B. Most Variable Genes and Transcription Factors in Acute Lymphoblastic Leukemia Patients. Interdiscip Sci 2019.
+[http://dx.doi.org/10.1007/s12539-019-00325-y] [PMID:
+30972690]
+[129] Liu S, Wang X, Qin W, Genchev GZ, Lu H. Transcription factors
+contribute to differential expression in cellular pathways in lung
+adenocarcinoma and lung squamous cell carcinoma. Interdiscip Sci
+2018; 10(4): 836-47.
+ [http://dx.doi.org/10.1007/s12539-018-0300-9] [PMID: 30039492]
+[130] Emad A, Cairns J, Kalari KR, Wang L, Sinha S. Knowledgeguided gene prioritization reveals new insights into the mechanisms
+of chemoresistance. Genome Biol 2017; 18(1): 153.
+ [http://dx.doi.org/10.1186/s13059-017-1282-3] [PMID: 28800781]
+[131] Lavi O, Skinner J, Gottesman MM. Network features suggest new
+hepatocellular carcinoma treatment strategies. BMC Syst Biol
+2014; 8: 88.
+ [http://dx.doi.org/10.1186/s12918-014-0088-0] [PMID: 25070212]
+[132] Daemen A, Griffith OL, Heiser LM, et al. Modeling precision
+treatment of breast cancer. Genome Biol 2013; 14(10): R110.
+ [http://dx.doi.org/10.1186/gb-2013-14-10-r110] [PMID: 24176112]
+[133] Chen P, Huhtinen K, Kaipio K, et al. Identification of prognostic
+groups in high-grade serous ovarian cancer treated with platinumtaxane chemotherapy. Cancer Res 2015; 75(15): 2987-98.
+[http://dx.doi.org/10.1158/0008-5472.CAN-14-3242] [PMID:
+26122843]
+[134] Song P, Wu S, Zhang L, Zeng X, Wang J. Correlation between PD-
+Bioinformatics Approaches for Anti-cancer Drug Discovery Current Drug Targets, 2020, Vol. 21, No. 1 17
+L1 expression and clinicopathologic features in 404 patients with
+lung adenocarcinoma. Interdiscip Sci 2019; 11(2): 258-65.
+[http://dx.doi.org/10.1007/s12539-019-00329-8] [PMID:
+31079342]
+[135] Selvaraj G, Kaliamurthi S, Lin S, Gu K, Wei DQ. Prognostic impact of tissue inhibitor of metalloproteinase-1 in non-small cell
+lung cancer: Systematic review and meta-analysis. Curr Med Chem
+2018.
+[http://dx.doi.org/10.2174/0929867325666180904114455] [PMID:
+30182835]
+[136] Meric-Bernstam F, Mills GB. Overcoming implementation challenges of personalized cancer therapy. Nat Rev Clin Oncol 2012;
+9(9): 542-8.
+ [http://dx.doi.org/10.1038/nrclinonc.2012.127] [PMID: 22850751]
+[137] Fang HB, Chen X, Pei XY, Grant S, Tan M. Experimental design
+and statistical analysis for three-drug combination studies. Stat
+Methods Med Res 2017; 26(3): 1261-80.
+ [http://dx.doi.org/10.1177/0962280215574320] [PMID: 25744107]
+[138] Podolsky SH, Greene JA. Combination drugs--hype, harm, and
+hope. N Engl J Med 2011; 365(6): 488-91.
+ [http://dx.doi.org/10.1056/NEJMp1106161] [PMID: 21830965]
+[139] Bansal M, Yang J, Karan C, et al. A community computational
+challenge to predict the activity of pairs of compounds. Nat Biotechnol 2014; 32(12): 1213-22.
+ [http://dx.doi.org/10.1038/nbt.3052] [PMID: 25419740]
+[140] Huang L, Li F, Sheng J, et al. DrugComboRanker: drug combination discovery based on target network analysis. Bioinformatics
+2014; 30(12): i228-36.
+[http://dx.doi.org/10.1093/bioinformatics/btu278] [PMID:
+24931988]
+[141] Li P, Huang C, Fu Y, et al. Large-scale exploration and analysis of
+drug combinations. Bioinformatics 2015; 31(12): 2007-16.
+[http://dx.doi.org/10.1093/bioinformatics/btv080] [PMID:
+25667546]
+[142] Lee JH, Kim DG, Bae TJ, et al. CDA: combinatorial drug discovery using transcriptional response modules. PLoS One 2012;
+7(8)e42573
+[http://dx.doi.org/10.1371/journal.pone.0042573] [PMID:
+22905152]
+[143] Kindsvater HK, Dulvy NK, Horswill C, Juan-Jordá MJ, Mangel M,
+Matthiopoulos J. Overcoming the data crisis in biodiversity conservation. Trends Ecol Evol (Amst) 2018; 33(9): 676-88.
+ [http://dx.doi.org/10.1016/j.tree.2018.06.004] [PMID: 30007845]
+[144] Yugi K, Kubota H, Hatano A, Kuroda S. Trans-Omics: How to
+reconstruct biochemical networks across multiple ‘Omic’ layers.
+Trends Biotechnol 2016; 34(4): 276-90.
+[http://dx.doi.org/10.1016/j.tibtech.2015.12.013] [PMID:
+26806111]
+[145] Chen BJ, Litvin O, Ungar L, Pe’er D. Context sensitive modeling
+of cancer drug sensitivity. PLoS One 2015; 10(8)e0133850
+[http://dx.doi.org/10.1371/journal.pone.0133850] [PMID:
+26274927]
+[146] Jaeger S, Duran-Frigola M, Aloy P. Drug sensitivity in cancer cell
+lines is not tissue-specific. Mol Cancer 2015; 14: 40.
+ [http://dx.doi.org/10.1186/s12943-015-0312-6] [PMID: 25881072]
+[147] O’Neil J, Benita Y, Feldman I, et al. An unbiased oncology compound screen to identify novel combination strategies. Mol Cancer
+Ther 2016; 15(6): 1155-62.
+[http://dx.doi.org/10.1158/1535-7163.MCT-15-0843] [PMID:
+26983881]
+[148] Sun Y, Sheng Z, Ma C, et al. Combining genomic and network
+characteristics for extended capability in predicting synergistic
+drugs for cancer. Nat Commun 2015; 6: 8481.
+ [http://dx.doi.org/10.1038/ncomms9481] [PMID: 26412466]
+[149] Gillet JP, Varma S, Gottesman MM. The clinical relevance of
+cancer cell lines. J Natl Cancer Inst 2013; 105(7): 452-8.
+ [http://dx.doi.org/10.1093/jnci/djt007] [PMID: 23434901]
+[150] Madani Tonekaboni SA, Soltan Ghoraie L, Manem VSK, HaibeKains B. Predictive approaches for drug combination discovery in
+cancer. Brief Bioinform 2018; 19(2): 263-76.
+ [http://dx.doi.org/10.1093/bib/bbw104] [PMID: 27881431]
+[151] Azuaje F. Computational models for predicting drug responses in
+cancer research. Brief Bioinform 2017; 18(5): 820-9.
+ [http://dx.doi.org/10.1093/bib/bbw065] [PMID: 27444372] 

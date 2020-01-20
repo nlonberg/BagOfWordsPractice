@@ -1,0 +1,1848 @@
+284
+Biostatistics and Bioinformatics in
+Clinical Trials
+Brian P. Hobbs, Donald A. Berry, and Kevin R. Coombes
+D. CLINICAL TRIALS
+17
+inference being the entire trial rather than, for example, a patient within
+the trial.
+For reasons discussed in this chapter, much interest has recently
+been expressed in the bayesian approach to statistics. In the first half
+of the 20th century there were few bayesian biostatisticians, and few
+biostatisticians knew what it meant to be bayesian.
+The bayesian approach predates the frequentist approach. Thomas
+Bayes developed his treatise on inverse probabilities in the 1750s, and
+it was published posthumously in 1763 as “An Essay Towards Solving
+a Problem in the Doctrine of Chances.”
+In the 200 years after Bayes, the discipline of statistics was influenced
+by probability theory and, in particular, games of chance, dating to
+the early 1700s.1–3 This view focused on probability distributions of
+outcomes of experiments, assuming a particular value of a parameter.
+A simple example is the binomial distribution. This distribution gives
+the probabilities of outcomes of a specified number of tosses of a
+coin with known probability of heads, which is the distribution’s
+parameter. The binomial distribution continues to be important today.
+For example, it is used in designing cancer clinical trials in which the
+end point is dichotomous (tumor response or not, say) and assuming
+a predetermined sample size.
+CLINICAL TRIALS
+A clinical trial is an experiment involving human subjects with the
+goal of evaluating one or more treatments for a disease or condition.
+A randomized controlled trial (RCT) compares two or more treatments
+in which treatment assignment is determined by chance, such as by
+rolling a die or tossing a coin.
+The traditional statistical approach is to consider two possible
+values of the unknown parameters, such as the tumor response rate
+BIOSTATISTICS APPLIED TO
+CANCER RESEARCH
+The modern era of cancer therapy raises major issues regarding statistical
+inference and study design. First, as biomarkers become available,
+they divide cancers into ever smaller subsets, with unique biomarkerdefined combinations of targeted therapies for each subset. Soon every
+patient with cancer will have an orphan disease. A related issue is the
+ever-increasing cost of drug development and the consequent cost of
+delivering care to persons with cancer. Unless we modify our approaches
+to cancer research, we will not be able to afford the therapies we
+develop, and innovation will cease.
+Biostatistical philosophy is critical in understanding the state of
+cancer research today and where it is heading. Biostatistics has had
+an immense impact on the level of science in cancer research, especially
+in designing and conducting clinical trials. However, as we make
+progress in developing better cancer therapeutics, patients’ prognoses
+improve, and clinical trials get larger because they are event driven.
+The irony is that despite the development of cancer in increasing
+numbers of persons in the world, fewer clinical investigations are
+possible because of limited resources, and fewer drugs can be developed
+despite the burgeoning number of potential anticancer drugs. Falsepositive and false-negative conclusions are well known, but the most
+frustrating problem in the modern era may be the number of “false
+neutrals”—drugs and therapeutic strategies that are never investigated
+because of insufficient resources.
+The history of biostatistics is dominated by the so-called frequentist
+approach. An alternative approach, the bayesian approach, was largely
+ignored as biostatistics developed into a discipline. In the frequentist
+approach, probabilities are defined as long-run proportions. The
+focus is on the final results of a clinical trial, say, with the unit of
+SUMMARY OF KEY POINTS
+•	 The process of conducting cancer
+research must change in the face of
+prohibitive costs and limited patient
+resources.
+•	 Biostatistics has a tremendous
+impact on the level of science in
+cancer research, especially in the
+design and conducting of clinical
+trials.
+•	 The bayesian statistical approach to
+clinical trial design and conduct can
+be used to develop more efficient
+and effective cancer studies.
+•	 Modern technology and advanced
+analytic methods are directing the
+focus of medical research to subsets
+of disease types and to future trials
+across different types of cancer.
+•	 A consequence of the rapidly
+changing technology for generating
+“omics” data is that biologic assays
+are often not stable long enough to
+discover and validate a model in a
+clinical trial.
+•	 Bioinformaticians must use
+technology-specific data
+normalization procedures and
+rigorous statistical methods to
+account for sample collecting, batch
+effects, multiple testing, confounding
+covariates, and any other potential
+biases.
+•	 Best practices in developing
+prediction models include public
+access to the information, rigorous
+validation of the model, and model
+lockdown before its use in patient
+care management.
+Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17 285
+The distinction between rate and probability in the aforementioned
+description is important, and failing to discriminate these terms has
+led to much confusion in medical research.4
+ The type I error rate is a
+probability only when one assumes that the null hypothesis is true.
+Probabilities of events requiring the truth of the null hypothesis are
+not available in the frequentist approach, and indeed this is a principal
+contrast with the bayesian approach (described later).
+Suppose a trial is conducted and 9 of 20 patients respond. One
+concludes that the null, r = 20%, is rejected because 9 is greater
+than the predetermined cut point of 8. However, the results are
+more convincing than had the result been exactly 8. Such reasoning
+led to the convention of reporting a P value, an “observed type I
+error rate.” This is the type I error rate had the predetermined cut
+point been set to the observed number. Thus the P value is .0100, as
+calculated earlier.
+Values of r other than 20% and 50% are possible. The standard
+frequentist approach to representing the range of possibilities is to
+provide a confidence interval, which is the set of values of r that would
+not be rejected as null hypotheses based on the data actually observed:
+9 responses out of 20 patients (or 45%). For these data, the values of
+r that would be rejected are those less than 26%. Because very large
+values of r are also inconsistent with the observed rate of 45%, it is
+conventional to also exclude large values from the confidence interval.
+Assuming type I error rates of 5% for both small and large values
+of r, the resulting confidence interval is from about 26% to 61%,
+which is a 90% confidence interval in the sense that 5% is excluded
+on both sides. Excluding only 2.5% on each side provides a 95%
+confidence interval: 23% to 64%. Ninety-five percent confidence
+intervals are commonly used and are always somewhat wider than 90%
+confidence intervals.
+Bayesian Approach
+A major difference between the bayesian and frequentist approaches is
+the use of probability distributions to represent unknown values. In the
+frequentist approach, probabilities apply only for “data.” Parameters
+that index data distributions (such as r in the aforementioned example)
+are unknown but are fixed and thus are not subject to probability statements. In the bayesian approach, all unknowns, including parameters,
+have probability distributions.
+In the example in which 20 patients yielded 9 responses, suppose
+that r is assumed to be either 20% or 50%. The bayesian conclusion
+r. For one value of r the treatment has no useful benefit, the so-called
+null hypothesis. The alternative hypothesis is a value of r that is clinically
+important in the sense of meriting future development.
+Consider a single-arm clinical trial with the objective of evaluating
+r. The null value of r is taken to be 20%. The alternative value is r =
+50%. The trial consists of treating n = 20 patients. The exact number
+of responses is not known in advance, but it is known to be either 0
+or 1 or 2 on up to 20. The relevant probability distribution of the
+outcome is binomial, with one distribution for r = 20% and a second
+distribution for r = 50%. These distributions are shown in Fig. 17.1,
+with red bars for r = 20% and blue bars for r = 50%. More generally,
+there is a different binomial distribution for each possible value of r.
+Both the frequentist and bayesian approaches to clinical trial design
+and analysis use distributions such as those shown in Fig. 17.1, but
+they use them differently.
+Frequentist Approach
+The frequentist approach to inference is based on error rates. A type
+I error is rejecting a null hypothesis when it is true, and a type II
+error is accepting the null hypothesis when it is false, in which case
+the alternative hypothesis is assumed to be true. It seems reasonable
+to reject the null, r = 20% (red bars in Fig. 17.1), in favor of the
+alternative, r = 50% (blue bars in Fig. 17.1), if the number of responses
+is sufficiently large. Candidate values of “large” might reasonably be
+those in which the red and blue bars in Fig. 17.1 start to overlap,
+perhaps 9 or greater, 8 or greater, 7 or greater, or 6 or greater.
+The type I error rates for these rejection rules are the respective
+sums of the heights of the red bars in Fig. 17.1. For example, when
+the cut point is 9, the type I error rate is the sum of the heights of
+the red bars for 9, 10, 11, and so on, which is 0.007387 + 0.002031
++ 0.000462 + … = 0.0100. When the cut points are 8, 7, and 6,
+the respective type I error rates are 0.0321, 0.0867, and 0.1958. One
+convention is to define the cut point so that the type I error rate is no
+greater than 0.05. The largest of the candidate type I error rates that
+is less than 0.05 is 0.0321, the test that rejects the null hypothesis if
+there are eight or more responses. The type II error rate is calculated
+from the blue bars in Fig. 17.1, wherein the alternative hypothesis is
+assumed to be true. The sum of the heights of the blue bars for 0 up
+to 7 responses is 0.1316. Convention is to consider the complementary
+quantity and call it “statistical power:” 0.8684, which rounds off
+to 87%.
+Probability of number of responses
+0.25
+0.20
+0.15
+0.10
+0.05
+0.00
+012345678 9 10 11 12 13 14 15 16 17 18 19 20
+Number of responses
+Figure 17.1 • Probabilities for number of responses when the rate of response is r = 20% (red bars) and when r = 50% (blue bars). Like all probability
+distributions, the sums of the heights of the red bars and the blue bars both equal 1. 
+286 Part I: Science Science and Clinical Clinical Oncology Oncology
+of a diagnostic test is the prevalence of the condition or disease in
+question. Prior probability depends on other evidence that may be
+available from previous studies of the same therapy in the same disease,
+or related therapies in the same disease or different diseases. Assessment
+may differ depending on the person making the assessment. Subjectivity
+is present in all of science; the bayesian approach has the advantage
+of making subjectivity explicit and open.5
+When the prior probability equals 0.50, as assumed in Fig. 17.2,
+the posterior probability of r = 20% is 0.0441. Obviously, this is
+different from the frequentist P value of 0.0100 calculated earlier.
+Posterior probabilities and P values have very different interpretations.
+The P value is the probability of the actual observation, 9 responses,
+plus that of 10 responses, 11 responses, and so on, assuming the null
+distribution (the red bars in Fig. 17.1). The posterior probability is
+computed conditionally with respect to the actual observation of nine
+responses and is the probability of the null hypothesis—that the red
+bars are in fact correct—but assuming that the true response rate is
+a priori equally likely to be 20% and 50%.
+P values are not intuitive in that they are calculated conditionally
+with respect to a hypothesis that seems unlikely to be true in view of the
+results (the null hypothesis) and because they depend on probabilities
+of possible occurrences that were not observed. For example, if there
+are two candidate null distributions with the same probability of
+the actual observation, the one with the smaller “tail” of unobserved
+values will have a smaller P value. Because they are counterintuitive,
+misinterpretations of P values abound. People usually convert a P
+value into something they understand but that is wrong, and the
+misinterpretation usually has a bayesian ring to it; for example, “The P
+value is the probability that the results could have occurred by chance
+alone.” An objection to bayesian inferences is that they are specific to
+assumed prior probabilities. A sensible type of report that addresses
+this concern is the following: “If your prior probability is this, then
+your posterior probability is that.”
+As an example of such a report, Fig. 17.3 shows the relationship
+between the prior and posterior probabilities. The figure indicates
+that the posterior probability is moderately sensitive to the prior.
+Someone whose prior probability of r = 20% is 0 or 1 will not be
+swayed by the data. However, as Fig. 17.3 indicates, the conclusion
+that r = 20% has low probability is robust over a broad range of prior
+probabilities. A conclusion that r = 20% has moderate to high probability is possible only for someone who was convinced that r = 20%
+in advance of the trial.
+In the example, r was assumed to be either 20% or 50%. It would
+be unusual to be certain that r is one of two values and that no other
+values are possible. A more realistic example would be to allow r to
+have any value between 0 and 1 but to associate weights with different
+values depending on the degree to which the available evidence supports
+those values. In such a case, prior probabilities can be represented
+with a histogram (or density). A common assumption is one that
+reflects no prior information that any particular interval of values of
+r is more probable than any other interval of the same width. The
+corresponding density is flat over the entire interval from 0 to 1 and
+is shown in red in Fig. 17.4A.
+The probability of the observed results (9 responses and 11
+nonresponses) for a given r is proportional to r
+9
+(1 - r)
+11, with the
+likelihood of r based on the observed results. The prior density is
+updated by multiplying it by the likelihood. Because the prior density
+is constant, this multiplication preserves the shape of the likelihood.
+Thus the posterior density equals just the likelihood itself, shown in
+green in Fig. 17.4A.
+The bayesian analog of the frequentist confidence interval is called
+a probability interval or a credibility interval. A 95% credibility interval
+is shown in Fig. 17.4B: r = 26% to 66%. It is similar to but different
+from the 95% confidence interval discussed earlier: 23% to 64%.
+Confidence intervals and credibility intervals calculated from flat prior
+densities tend to be similar, and indeed they agree in most circumstances
+when the sample size is large. However, their interpretations differ. A
+is the probability of r = 50%, given the final results. (This is 1 minus
+the probability of r = 20% under the assumption that these are the
+only two possible values of r.) The calculation uses the Bayes rule.
+The method is the same as when finding the positive predictive value
+of a test as it relates to the condition’s prevalence and the test’s sensitivity
+and specificity. The Bayes rule is also called the rule of inverse probabilities
+because it relates the probability of some event A, given that event
+B has occurred, with the probability of event B given that event A
+has occurred.
+The calculation is intuitive when viewed as a tree diagram, as in
+Fig. 17.2. Fig. 17.2A shows the full set of probabilities. The first
+branching shows the two possible parameters, r = 20% and r = 50%.
+The probabilities shown in the figure, 0.50 for both, will be discussed
+later. The data are shown in the next branching, with the observed
+data, nine responses (nine resp) on one branch and all other data on
+the other. The probability of the data given r, which statisticians call
+the likelihood of r, is the height of the bar in Fig. 17.1 corresponding
+to nine responses, the red bar for r = 20%, and the blue bar for r =
+50%. The rightmost column in Fig. 17.2A gives the probability of
+both the data and r along the branch in question. For example, the
+probability of r = 20% and “nine resp” is 0.50 multiplied by 0.0074.
+The probability of r = 20% given the experimental results depends
+on the probability of r = 20% without any condition, its so-called
+prior probability. The analog in finding the positive predictive value
+Probability
+of r
+r = 20%
+r = 50%
+0.50
+0.50
+9 resp
+Not 9
+0.0074
+0.9926
+9 resp
+Not 9
+0.1602
+0.8398
+0.0037
+0.4963
+0.0801
+0.4199
+r = 20%
+r = 50%
+0.50
+0.50
+9 resp
+Not 9
+0.0074
+0.9926
+9 resp
+Not 9
+0.1602
+0.8398
+0.0037
+0.4963
+0.0801
+0.4199
+Prior
+probability
+Probability of 9 responses: 0.0037 + 0.0801 = 0.0838
+Probability that r = 20% given 9 responses: 0.0037/0.0838 = 0.0441
+Probability that r = 50% given 9 responses: 0.0801/0.0838 = 0.9559
+Data
+Probability
+of data
+given r
+Probability
+of data
+given r
+A
+B
+C
+Figure 17.2 • (A) Tree diagram showing probabilities and conditional
+probabilities when there are 20 observations. (B) Modification of (A), restricting
+to the actual number of nine responses (9 resp), with “Not 9” grayed out.
+Possible observations that were not observed are not considered. (C) Calculations
+demonstrating the Bayes rule. 
+Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17 287
+now serves as the prior density for the next trial. Multiplying that
+density by likelihood number 2 gives the posterior density based on
+the data from both trials, as shown in Fig. 17.5. The order of observation
+is not important. Updating first on the basis of the second trial gives
+the same result. Indeed, multiplying the prior density, likelihood
+number 1, and likelihood number 2 in Fig. 17.5 gives the posterior
+density shown in the figure.
+The calculations of Fig. 17.5 assume that r is the same in both
+trials. This assumption may not be correct. Different trials may well
+have different response rates, say r1 and r2. In the bayesian approach,
+these two parameters have a joint prior density. One way to incorporate
+into the prior distribution the possibility of correlated r1 and r2 is to
+use a hierarchical model in which r1 and r2 are regarded to be sampled
+from a probability density that is unknown, and therefore this density
+itself has a probability distribution. More generally, there may be
+multiple sources of information that are correlated and multiple
+parameters that have an unknown probability distribution. A hierarchical model allows for borrowing strength across the various sources
+depending in part on the similarity of the results.6–8
+credible interval has a particular probability that the parameter lies
+in the interval. Statements involving probability or chance or likelihood
+cannot be made for confidence intervals.
+Any interval is an inadequate summary of a posterior density. For
+example, although r = 45% and r = 65% are both in the 95% credibility
+interval in the aforementioned example (see Fig. 17.4), the posterior
+density shows the former to be five times as probable as the latter.
+A characteristic of the bayesian approach is the synthesis of evidence.
+The prior density incorporates what is known about the parameter
+or parameters in question. For example, suppose another trial is
+conducted under the same circumstances as the aforementioned example
+trial, and suppose the second trial yields 15 responses among 40
+patients. Fig. 17.5 shows the prior density and the likelihoods from
+the first and second trials. Multiplying likelihood number 1 by the
+prior density gives the posterior density, as shown in Fig. 17.4. This Posterior probability that r = 20%
+1
+0.9
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+0
+0 0.1 0.2 0.3 0.4 0.5
+0.0441
+0.82
+0.6 0.7 0.8 0.9 1
+Prior probability that r = 20%
+Figure 17.3 • Influence of prior probability of rate of response, r = 20%,
+on its posterior probability after observing 9 responses among 20 patients. The
+calculation uses the Bayes rule, a different application of the Bayes rule for
+each possible prior probability. The figure highlights the posterior probability
+of 0.0441 when the prior probability is 0.50, as calculated in Fig. 17.2C. If
+the prior probability is very high—for example, 0.99—then the posterior
+probability is about 0.82, still high but much reduced from its prior probability.
+Posterior density
+Prior density
+2.5%
+4
+3
+2
+1
+0
+0 0.1 0.2 0.3 0.4 0.5
+r
+0.6 0.7 0.8 0.9 1
+4
+3
+2
+1
+0
+0 0.1 0.2 0.3 0.4 0.5
+r
+0.6 0.7 0.8 0.9 1
+2.5%
+A B
+Figure 17.4 • Histograms of probability distributions. (A) The horizontal red line shows the prior density, assumed to be flat and hence “noninformative”
+in the sense described in the text. The blue curve shows the posterior density on the basis of 9 responses among 20 patients. Because the prior density is flat,
+the posterior density is proportional to the probability of the results for a given response rate, r, which is r9
+(1 - r)11. The proportionality constant makes the
+area under the curve equal to 1, the same as the area under the prior density. (B) The area under the posterior density to the left of r = 0.26 equals 2.5%,
+and the same is true for that to the right of 0.66. The values between these two limits form a 95% credibility interval for r.
+Posterior density
+Prior density
+Likelihood 1
+Likelihood 2
+4
+5
+6
+7
+3
+2
+1
+0
+0 0.1 0.2 0.3 0.4 0.5
+r
+0.6 0.7 0.8 0.9 1
+Figure 17.5 • Two trials, conducted under the same circumstances, with
+data indicated by the likelihoods 1 and 2. The posterior density is that for
+the data from both trials. 
+288 Part I: Science Science and Clinical Clinical Oncology Oncology
+represented a response to the treatment—in fact, the trial would have
+stopped after four responses in four patients.
+It happens that for this simple adaptive design it is possible to find
+its operating characteristics algebraically, but the calculations are tedious.
+In more complicated circumstances, algebraic calculations may not
+be possible and simulations are necessary.
+Simulations are easy to describe. To address r = 50%, start with a
+fair coin, one with probability of heads equal to 50%, and interpret
+“heads” to mean response. Whenever a patient is accrued to the trial,
+toss the coin, observe the result, and update the probability that r =
+50% on the basis of the tosses thus far. Stop the trial if this probability
+is greater than 95% and make a mark so indicating. If the number
+of tosses reaches 20 without having made a mark, then stop the trial
+because you have hit the maximal sample size. When the trial stops,
+make a note of the total number of tosses, say n, in the trial. Repeat
+the trial a total of 10,000 times. Count the number of marks and
+divide by 10,000. This is the estimated power of the study assuming
+r = 50%. Tabulate the 10,000 values of n to give an estimate of the
+distribution of the final sample size under the alternative hypothesis.
+(You should have a mark for every trial with n <20 and also for some
+trials with n = 20.)
+To find the type I error rate, repeat the aforementioned process
+with another set of 10,000 iterations generated using a device that
+has probability of heads equal to 20%. (An example device is a regular
+20-sided die with “heads” labeled on four of the sides.) The proportion
+of marks is the estimated type I error rate. The tabulated values of n
+are the estimated distribution of the final sample size under the null
+hypothesis.
+Tossing a coin perhaps 100,000 times will take a while, especially
+because you will have to keep track of which trial you are in and
+whether you have achieved the stopping boundary for that trial. The
+good news is that a simple program running on a modern desktop
+computer can simulate 10,000 trials in a few seconds. The computer
+does all the work. Moreover, an additional few seconds gives you
+another 10,000 simulated trials assuming another value of r by simply
+changing the value of r in the program.
+Fig. 17.6 shows the sample size distribution for 10,000 trials under
+the assumption that r = 50%. The estimated type II error rate is
+0.1987, which is the proportion of these 10,000 trials that reached
+n = 20 without ever concluding that the posterior probability of r =
+50% is at least 95%. The sample size distribution when r = 20% is
+not shown but is easy to describe: 9702 of the trials (97.02%) went
+to the maximum sample size of n = 20 without hitting the posterior
+probability boundary and the other 3% stopped early (at various
+values of n <20) with an incorrect conclusion that r = 50%. Thus
+3% is the estimated type I error rate. The “estimated” aspect of these
+statements is because there is some error due to simulation. Based on
+10,000 iterations, the standard error of the estimated power is small,
+but positive: 0.4%. The standard error of the type I error rate is less
+than 0.2%.
+Because the bayesian approach allows for updating knowledge
+incrementally as data accrue, even after every observation, it is ideally
+suited for building efficient and informative adaptive clinical trials.10–12
+The bayesian approach serves as a tool. As evinced in the aforementioned
+example, simulations enable calculation of traditional frequentist
+measures of type I error rate and power. The Institute of Medicine
+(IOM) recently advocated for the need to restructure the entire clinical
+trial system to advocate for adaptive designs and to address other
+deficiencies that limit the effectiveness and efficiency of trials.13 The
+initiative was reaffirmed with the 21st Century Cures Act passed by
+the United States House of Representatives in July 2015.
+Innovations in adaptive design have been proposed to address all
+aspects of drug development. Despite the extensive use of traditional
+dose-escalation studies, their limitations with monitoring rules based
+on algorithmic formulations, such as the 3 + 3 design, have been well
+described (see e.g., Wong and colleagues14). Recent innovations have
+effectuated designs for phase I trials that use the sequential application
+A rather different application of bayesian hierarchical models,
+called a tumor agnostic, is destined to become important in cancer
+clinical trials. Consider an agent targeted at a particular mutation.
+There may be subsets of patients who harbor this mutation across a
+broad range of tumor types. The mutation may be rare in some or
+all tumor types. Mustering a compelling clinical trial in any given
+tumor type may be impossible. Instead, one might conduct a single
+trial across 10 tumor types, say, regarding response rates r1, r2, …, r10
+as a sample from a population. The population distribution may be
+homogeneous, in which case there is substantial “borrowing of strength”
+across the tumor types. This may enable a claim of effectiveness in
+tumor types that, when left to stand alone, would have wide credibility
+intervals because of their small sample sizes. On the other hand, if
+the population of response rates is heterogeneous, then the observed
+response rates will be highly variable, and borrowing will occur mainly
+across neighboring tumor types.
+We next apply the bayesian perspective in two important directions
+that are the focus of attention in modern cancer research.
+Adaptive Designs of Clinical Trials
+Randomization was introduced into scientific experimentation by
+R.A. Fisher in the 1920s and 1930s and applied to clinical trials
+by A.B. Hill in the 1940s.9
+ Hill’s goal was to minimize treatment
+assignment bias, and his approach changed medicine in a fundamentally important way. The RCT is now the gold standard of
+medical research. A mark of its impact is that the RCT has changed
+little during the past 65 years, except that RCTs have gotten bigger.
+Traditional RCTs are simple in design and address a small number of
+questions, usually only one. However, progress is slow, not because of
+randomization but because of limitations of traditional RCTs. Trial
+sample sizes are prespecified. Trial results sometimes make clear that
+the answer was present well before the results became known. The
+only adaptations considered in most modern RCTs are interim analyses
+with the goal of stopping the trial on the basis of early evidence of
+efficacy or for safety concerns. There are usually few interim analyses,
+and stopping rules are conservative. As a consequence, few trials
+stop early.
+In traditional RCTs, randomization proportions are fixed throughout. The possibility that the accumulating data in the trial can influence
+randomization probabilities or other aspects of a trial’s course may
+affect the trial’s performance characteristics, including its type I error
+rate and statistical power. Moreover, these effects may be difficult to
+analyze with traditional mathematics. However, modern computers
+and software make traditional mathematics unnecessary. Any prospective
+trial design, however complicated, can be simulated. A prospective
+trial design is an automaton. At any time during the trial and based
+on the information available from trial participants, the next patient
+is assigned a particular therapy, possibly based on an adaptive randomization scheme. Any trial that has a prospective design can be simulated.
+Virtual patients can be generated with their outcomes depending on
+assumed parameter values and treatment assignment according to the
+prospective design. Replicating the trial 10,000 times, say, gives a firm
+handle on the trial conclusion for the parameter values assumed in
+the simulation.
+Consider a simple case, a variant of the earlier example in which
+the response rate r was assumed to be either 20% or 50%. Set the
+maximum number of patients in the trial to 20. Stop the trial with
+a claim favoring the alternative hypothesis r = 50% whenever the
+probability of r = 50% versus r = 20% is at least 95% (and therefore
+the probability of r = 20% is less than 5%).
+As a check that the reader is following this description: the binomial
+distribution assumed earlier is no longer relevant, even if the final
+sample size happens to be 20. Consider an extreme case. The binomial
+distribution gives positive probability to 20 responses regardless of
+the value of r (unless r = 0). However, the adaptive design would have
+stopped long before getting to 20 patients when every patient 
+Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17 289
+biologic molecules: genomics for sequence-based studies of DNA,
+epigenomics for DNA modifications, transcriptomics for RNA,
+proteomics for proteins, and metabolomics for small molecules. Predictors that can potentially be used for classification, diagnosis, prognosis,
+or selection of therapy may be found in any of these classes of molecules.
+The role of bioinformatics is to manage and organize the data and
+to make possible the statistical analysis needed to discover and validate
+predictive models based on omics technologies.
+Challenges
+Numerous challenges must be overcome to incorporate omics data
+into clinical oncology. The technology changes so rapidly that it can
+be difficult to develop an assay that will remain stable long enough
+to discover and validate a model in a clinical trial. A wide variety of
+omics technologies are available to assay different classes of molecules,
+which requires researchers and analysts to develop a broad range of
+expertise, not only in the individual technologies, but also in statistical
+methods to integrate the resulting data. Omics data sets often are
+hampered by batch effects, which can be overcome only by careful
+attention to experimental design and the development of standard
+protocols. Statistically, the analysis of omics data sets is a struggle
+against issues of multiple testing and overfitting. The development of
+second-generation sequencing technologies poses additional challenges
+from the sheer volume of data and the need for substantial computer
+power to interpret the data.
+Pace of Technologic Change
+The first microarrays that could simultaneously measure the messenger
+RNA (mRNA) expression levels of thousands of genes were developed
+in the mid 1990s.25,26 Within a few years, they were being used to
+study cancer.27–31 The technology evolved rapidly. For example, one
+of the major manufacturers of microarrays, Affymetrix, began with
+HuGeneFL GeneChip arrays that contained 6800 probe sets. They
+advanced over the course of little more than a decade through the
+U95A (12,000 probe sets), U133A (22,000), U133Plus2.0 (54,000),
+Human Gene ST 1.0 and 2.0, and Human Exon ST 1.0 and 2.0
+microarrays. The typical time between the introductions of successive
+generations of microarray platforms was 2 or 3 years. Nevertheless,
+of decision rules derived from formal probability models15 and have
+facilitated designs that are devised to optimize dose and schedule
+conjointly.16,17 Several authors have explored the extent to which
+platform trials18 (which enable study arms to be dropped or added
+during the course of enrollment) may yield improvements in efficiency
+as well as improve treatment efficacy for trial participants.
+A patient’s experience on receiving a particular therapeutic strategy
+is often a complex synthesis of measures that describe both the extent
+of induced harm as well as realized clinical benefit achieved. Thus
+“patient response” in itself is often difficult to characterize, especially
+when designing studies to compare the multimodal treatment strategies
+that are actually used as matter of routine in clinical oncology. Clinical
+translation has been limited by statistical testing procedures and designs
+that rely on reductive characterizations of a patient’s experience based
+on binary and univariate endpoints. A few authors have put forth
+innovations to address these limitations19–22 and to establish designs
+that account for the dynamic nature of cancer care in settings that
+require multiple therapies administered in stages over the course of
+treatment.23,24
+Taking an adaptive approach is fruitless when there is no information
+to which to adapt. In particular, for long-term end points there may
+be little information available when making an adaptive decision.
+However, early indications of therapeutic effect are sometimes available,
+including longitudinal biomarkers and measurements of tumor burden,
+for example. These indications can be correlated with long-term clinical
+outcomes to enable better interim decisions.7,12
+A limitation of adaptive approaches is that they require the ability
+to update the outcome database and connect it to the patient assignment
+algorithm. Another limitation is that an adaptive design, although
+fully prospective, can be complicated to convey to investigators, patients,
+institutional review boards, and regulators.
+BIOINFORMATICS
+As a discipline, bioinformatics sits at the interface where biology and
+medicine meet a confluence of quantitative sciences, including computer
+science, mathematics, and statistics. Its primary application to oncology
+is sifting through genome-scale (“omics”) data sets to identify biomarkers
+and molecular signatures that can be used to predict clinically relevant
+outcomes. Each omics technology focuses on a particular class of Number of simulated studies
+2500
+2000
+1500
+1000
+500
+0
+123456789 10 11 12 13 14 15 16 17 18 19 20
+n = Final sample size
+Figure 17.6 • Sample size distribution when the response rate is r = 50% in the adaptive stopping example in the text. Among the 2353 simulated trials
+that finished with maximum sample size of n = 20 were 366 that achieved a posterior probability of r = 50% greater than 0.95 at that point; the other 1987
+simulated trials reached n = 20 without such a conclusion, and thus 0.1987 is the estimated type II error rate (equivalently, the estimated power is 0.8013).
+The mean sample size in the 10,000 simulations was 12.2, with a standard deviation of 5.7. Some sample sizes never occurred. For example, the stopping
+bound for the probability of r = 50% requires at least five responses in n = 6 patients. However, both four and five responses also call for stopping at n = 5,
+and thus five responses cannot occur at n = 6. 
+290 Part I: Science Science and Clinical Clinical Oncology Oncology
+data after quantification, summarization, and normalization is often
+similar even for radically different technologies, in which case similar
+statistical methods can be applied. The exact form of the statistical
+analysis depends less on the nature of the technology platform and
+more on the design of the experiment. Bioinformaticians must consider
+several factors, such as the kinds of patient samples that are being
+contrasted, whether the outcome measures binary, continuous, or
+time-to-event data, and the covariates (e.g., age, stage, grade, and
+smoking status) for which they must account in the analysis.
+It is unreasonable to expect manufacturers of scientific instruments
+to have the expertise required to program the wide variety of sophisticated statistical methods needed to account for differences in
+experimental design. It is surprising, however, that manufacturers do
+not always know the best ways to process their own raw data. For
+example, the first Affymetrix microarrays were designed with use of
+multiple pairs of “perfect match” and “mismatch” (MM) probes to
+target each gene. The idea was that the MM probes could be used to
+estimate nonspecific cross-hybridization, and so their initial algorithm
+quantified the expression of a gene as the average difference between
+the perfect match and MM probes. Li and Wong43 recognized that
+different probes for the same gene have different affinities, and thus
+their mean expression will vary even within the same sample. They
+replaced the simple average with a statistical model that accounted
+for different probe affinities.43 Bolstad and colleagues44 and Irizarry
+and associates45 showed that the MM probes increased the noise in
+the summary measurements with no compensating gain in signal
+clarity; they introduced an improved statistical method known as the
+robust multiarray average (RMA). Most current analyses of Affymetrix
+gene expression data use RMA.
+Many advances in the methods for processing and analyzing
+omics data sets have come from academics and are made available as
+open source software. Bioconductor (http://www.bioconductor.org)
+is the largest repository of such software packages, written for the
+R statistical programming environment.46,47 The Bioconductor
+repository is the equivalent of a hardware store for statisticians and
+bioinformaticians searching for tools with which to analyze their latest
+data set. An alternative approach is provided by GenePattern48 (http://
+www.broadinstitute.org/cancer/software/genepattern/). GenePattern is
+a Web service through which data can be uploaded and analyzed by
+biologists as well as statisticians. Modules can be written and shared
+in a variety of programming languages, then assembled into reusable
+self-documenting pipelines.
+Batch Effects and Experimental Design
+Batch effects are an unavoidable characteristic of data collected using
+cutting-edge technologies on research-grade scientific instruments.49
+The instruments are often temperamental, requiring frequent tuning
+and calibration. Reagents change, and new printings of the “same”
+microarray can be subtly different. As a result, a batch of tumor
+samples analyzed in November may differ in many ways (although
+not of biologic interest) from a similar batch analyzed in February.
+These technologic effects are often large enough to swamp any interesting biology, and they can occur on the timescale of days rather than
+months. Unless accounted for in the experimental design, batch effects
+can ruin a perfectly good experiment. For example, in 2002, Petricoin
+and colleagues50 published an article that claimed they had developed
+a tool that could be used to diagnose ovarian cancer based on proteomic
+patterns detected in serum samples. Their results were soon questioned;
+it eventually transpired that the signals they had detected were
+technologic artifacts, caused by running all of the controls on their
+mass spectrometer before all the cases.51–53
+There are several ways to deal with batch effects. First, pay attention
+to experimental design. Apply the basic principles of randomization
+and blinding to ensure that the contrasts of interest (tumor versus
+normal, or responder versus nonresponder, for example) are not
+confounded with any batch effects that may be present. Second, if
+as that decade ended, researchers were increasingly moving away from
+microarray technology and toward RNA sequencing technology as
+their primary tool to measure mRNA abundance. The technologies
+used to measure DNA copy number alterations went through a similar
+evolution during this period.
+This rapid pace of change poses serious challenges when trying to
+apply these technologies in clinical trials, which may take several years
+to conduct. Often the technologic platform used to develop a predictive
+model differs from the one proposed to test the predictions in a clinical
+trial. It is even possible for a manufacturer to discontinue production
+of a platform that researchers are using or proposing to use in a clinical
+trial. Every time the platform changes, the assay must be recomputed
+and revalidated (preferably by biostatisticians and bioinformaticians
+working with a laboratory that has been certified according to the
+Clinical Laboratory Improvement Amendments [CLIA] of the US
+Code of Federal Regulations).
+Breadth of Technologies
+At the same time that microarray technologies were expanding to
+allow the entire transcriptome to be assayed in a single experiment,
+new technologies were emerging that focused on other biologically
+important molecules. The Cancer Genome Atlas (TCGA) started
+assaying approximately 500 tumors per cancer type by using a broad
+spectrum of omics technologies.32 Initial plans called for microarray
+approaches to measure mRNA expression, microRNA (miRNA)
+expression, DNA copy number alteration, and methylation. These
+plans were supplemented by direct Sanger sequencing of a predefined
+set of cancer-related genes and by proteomic techniques, including
+mass spectrometry and reverse-phase protein lysate arrays. More recently,
+TCGA began applying second-generation sequencing technology to
+study DNA (whole-genome or whole-exome sequencing), RNA
+(RNA-Seq), and methylation (chromatin immunoprecipitation on
+sequencing [ChIP-Seq]) in these tumor samples.33,34
+In at least one case, an entire class of biologically interesting
+molecules is itself relatively new. The first miRNA was discovered in
+1993 by cloning the lin-4 gene in Caenorhabditis elegans.
+35 That there
+were numerous (highly conserved) miRNAs in different species did
+not become known until the simultaneous publication of three papers
+in 2001.36–38 A year later, Calin and colleagues39 demonstrated that
+miRNAs played an important role in cancer by showing that the
+“tumor suppressor genes” contained in the minimal deleted region of
+a recurrent deletion of chromosome 13q in chronic lymphocytic
+leukemia consisted of miRNA-15a and miRNA-16-1. Version 19 of
+the reference database miRBase (http://www.mirbase.org/), maintained
+by the Wellcome Trust Sanger Institute, now lists 1600 precursors
+and 2042 mature human miRNAs.40–42 In addition, of course, there
+are now microarrays that simultaneously measure (almost) all of them.
+Each omics technology requires specialized methods for processing
+the raw data and converting it into a form that can be analyzed to
+discover or validate biomarkers and signatures. Often the raw data
+are fluorescence-based images that must be quantified and summarized.
+Each assay requires its own form of normalization that is intended to
+correct for technologic artifacts that may distort the measurements.
+At its simplest, the process of normalization is rescaling the data to
+account for differences in starting material between samples; if one
+starts an experiment with twice as much total RNA from one sample,
+then one would expect all the measurements to be twice as large.
+More complicated normalization schemes, based on sophisticated
+statistical models, are common. Bioinformaticians must understand
+enough about how different biologic assays work to select (or develop)
+appropriate methods to process each kind of data.
+Historically, when manufacturers introduced new instruments, they
+also provided software to quantify and analyze the data that they
+produced. Statisticians and bioinformaticians, sometimes with good
+reason, tend to be leery of the “black box” software packages that
+accompany scientific instruments. For one thing, the structure of the 
+Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17 291
+used to construct a multivariate computational model that will be
+able to perfectly predict any desired outcome variable on any given
+set of biologic samples. Because the data are random, it is guaranteed
+that any such model is bogus: it “overfits” the existing data and will
+not generalize to new data. Second, the P value correction methods
+that work one feature at a time will not help. For example, the number
+of 35-feature signatures that can be selected from a set of 10,000
+features is approximately a googol (10100). No molecular signature
+will ever survive Bonferroni correction of this magnitude. In addition,
+two different 35-feature signatures that share 30 features in common
+will be highly correlated, invalidating most of the methods for estimating
+the FDR. The solution to this problem, however, is simple: any putative
+predictive model based on a complex signature must be validated on
+an independent data set, preferably one collected prospectively with
+respect to the definition of the predictive model.
+Sequencing
+The move from hybridization-based microarray assays to secondgeneration sequencing technology poses additional bioinformatics
+challenges. First, there is the sheer volume of data. Even after discarding
+the raw images, sequencing data from one sample takes about 1 terabyte
+of disk space. Storing these data, moving them across the network,
+and accessing them efficiently requires improvements in computer
+hardware and software. Second, raw sequence data require heavy-duty
+computer processing before they begin to become useful. Millions of
+sequence “reads” must be mapped to the genome before they can be
+summarized to provide information about individual genes or other
+genomic features. In the hybridization approaches, this computational
+burden is front-loaded and performed once when designing probes.
+In sequencing, a computational burden exists for every sample processed.
+Third, because every individual genome is unique, the mapped reads
+must be interpreted to identify single-nucleotide polymorphisms, small
+insertions and deletions (indels), structural variations (translocations
+or gene fusions), and DNA copy number variation, either present in
+germline DNA or acquired somatically. Generating the raw sequence
+data currently takes about a week; mapping and interpretation of the
+data may take a month to get through the queue on a high-performance
+computing cluster.
+BEST PRACTICES
+In response to problems encountered with the premature use of
+gene-expression signatures in clinical trials at Duke University,65 the
+IOM convened a committee to clarify the steps needed to move
+omics-based signatures from their initial discovery into clinical trials
+where they can affect patient management and, ideally, improve patient
+outcomes.66 The most important committee recommendation was to
+draw a bright line after the discovery and validation of a predictive
+model and before its application in a clinical trial. Before crossing that
+line, the test should already be validated, preferably in an independent
+set of samples or, if that method is not available, by cross-validation. A
+clinical assay should be developed in a CLIA-certified laboratory, and
+the complete computational procedure must be completely specified
+and “locked down.” Any change to the procedure requires revalidation
+of the method before it is used to affect patient management. An
+example is changing the prespecified cutoffs that distinguish patients
+with high-risk disease from those with low-risk disease; this warrants
+revalidating the method.
+The IOM recommendations build on a long history of related
+guidelines. For example, the Early Detection Research Network
+proposed a sequence of phases for the development of biomarkers
+intended for cancer screening.67 However, because the requirements
+for a good screening biomarker are different from those for a prognostic
+or predictive biomarker, the Early Detection Research Network
+biomarker phases are not universally applicable. The minimum
+information about a microarray experiment (MIAME) standard defines
+batch effects are suspected, there are existing statistical methods to
+model them and, to some extent, remove them.54–56
+Additional challenges arise in the context of clinical trials. The
+standard normalization methods for most omics technologies require
+analyzing the entire set of data at once, which is impossible when
+patients arrive one by one and a decision about how to randomly
+assign them to treatment arms depends on the results of an individual
+assay. In the context of Affymetrix microarrays, this issue was addressed
+by the introduction of “frozen RMA,” which computes the normalization parameters from a training set and then applies them to new
+arrays one at a time.57 Not all omics technologies have completely
+faced this issue. In many cases, as with the comparative CT (or ??CT)
+method for quantitative, real-time, reverse-transcription polymerase
+chain reaction (qPCR),58 the best solution may be to run a normalization
+or calibration standard alongside every experimental sample.
+Multiple Testing and Overfitting
+At this point, we can assume that we have settled on the technology
+platform to assay a particular class of biologic molecules. We have
+collected the patient samples, randomized their run order, and corrected
+any batch effects in the processed data. We are now ready to discover
+the new biomarkers or molecular signatures that will revolutionize
+the practice of clinical oncology. And we run head-on into an enormous
+statistical hurdle: multiple testing.
+Each omics technology measures thousands of features simultaneously. (Feature is the standard term in the machine learning literature
+for a potential predictor. The first step in building a complex predictive
+model is feature selection—deciding which features to include and which
+to leave out of the model. We use the term here for its neutrality; it
+covers genes, proteins, miRNAs, single-nucleotide polymorphisms,
+enhancers, promoters, or anything else that might help us predict
+who will or will not respond to a particular therapy.) Each feature can
+be tested separately for its ability to predict the outcome of interest,
+and a P value can be associated with each feature in the usual way for
+the statistical test being used. However, those P values do not mean
+what one might think they mean. Suppose, for example, that 20,000
+features are tested, and it is discovered that only 1000 of them have
+P values less than the magic number of .05. In that case, a reasonable
+conclusion is that nothing that has been measured is actually related
+to the outcome the test is trying to predict! The problem is that
+1000/20000 = 5%, which is the number of small P values one would
+expect to occur by chance when 20,000 statistical tests are performed.
+The traditional statistical response to the problem of multiple
+testing is to apply a “Bonferroni correction” to the cutoff used to
+define significance. If one is testing for N features, then the P value
+should be less than 0.05/N in order for one to claim significance at
+the 5% level. With 20,000 features, this requirement translates into
+a P value below .0000025. One might think that this requirement
+is extreme, and perhaps it is. The Bonferroni correction is extremely
+conservative. It tries to control the “family-wise error rate”; in other
+words, it attempts to make sure there are no (type I) errors in what
+one calls significant. Continuing the hypothetical experiment, suppose
+20,000 features are tested, and it is found that 50 of them have a P
+value below 2.5 × 10-6
+. In only 5% of such experiments would one
+expect to find any errors in the list of 50 features. A less conservative
+approach is to control the false discovery rate (FDR), the expected
+fraction of false-positive (FP) calls among all positive calls: FP/(FP
++ TP), where TP is a true-positive call.59 Numerous methods have
+been developed to estimate the FDR in omics experiments.60–64 A
+few of these methods also allow one to estimate the number or rate
+of false-negative calls. Sometimes called type II errors, false-negative
+calls have an opportunity cost in terms of potential discoveries that
+are never made.
+Multiple testing becomes much worse when one is evaluating
+molecular signatures. First, it is easy to show that random data (created
+with a random number generator) containing enough features can be 
+292 Part I: Science Science and Clinical Clinical Oncology Oncology
+technology and research-grade scientific instruments does not provide
+the stability needed for a clinical assay. One consequence is that the
+development of a clinical assay may involve a change of technology.
+Instead of using microarrays or RNA-Seq to measure gene expression,
+the assay may be converted to use qPCR. Whole-genome sequencing
+will be replaced by sequencing targeted at a few relevant genes. Tests
+for DNA copy number alterations may be converted to use fluorescence
+in situ hybridization. The role of the clinical laboratory is to demonstrate
+that the assay is analytically reproducible, and, if necessary, to adjust
+the locked-down predictive model to use the measurements made on
+the new technology platform.
+Evaluation of Clinical Utility
+After developing the clinical assay to implement the locked-down
+predictive model, researchers can start designing the clinical trial.
+At this point, regulatory issues come into play. As with all clinical
+trials, researchers must obtain approval from the institutional review
+board. However, additional action may also be required. In response
+to a proposed test to detect ovarian cancer (OvaCheck) that grew
+out of the flawed mass spectrometry experiments on serum, to the
+clinical trials at Duke, and to similar issues elsewhere, the US Food
+and Drug Administration (FDA) has ruled that complex predictive
+models are “medical devices,” the regulation of which falls under
+their jurisdiction. If those devices will be used in a clinical trial
+to guide patient management in any way, then researchers must
+obtain an investigational device exemption (IDE). The IDE is the
+medical device equivalent of the better-known investigational new
+drug application that is needed for testing a new drug in a clinical
+trial. The IOM committee recommends that specific members of the
+institutional review board be made responsible for considering the
+need for an investigational new drug application or IDE in proposed
+clinical trials.
+Not every clinical trial evaluating the usefulness of a predictive
+model needs an IDE; the fundamental criterion is whether the
+molecular signature or assay device is being used to direct patient
+management. A prospective-retrospective82 study design in which
+the signature is measured on archived specimens to determine
+whether it would have been useful should not require an IDE. Similarly, a prospective clinical trial in which the signature is passively
+measured but not used to determine patient care would not need
+an IDE.
+Signatures Are Not Enough
+In most of the literature, “signature” is a synonym for “list of genes.”
+As should be clear by this point, having a list of genes is not enough
+to make predictions about patient outcomes. For that purpose, you
+must know exactly how to measure each gene, how to combine those
+measurements to produce a numeric score, and how to interpret that
+score in a clinical context. Only then do you have a fully specified,
+locked-down computational model. The good news, however, is that
+for statistical purposes the fully specified model can be considered
+to be just one thing. Omics-based predictive signatures are a form
+of complex biomarker. As a result, the statistical designs for clinical
+trials that will evaluate one such signature are exactly the same as the
+designs for evaluating a single biomarker (such as the mutation status
+of the EGFR gene). The sample size computations are, in principle,
+identical.
+Clustering Is Not Prediction
+Clustering algorithms, especially in the form of two-way clustered,
+colored heat maps, have been ubiquitous in the microarray literature
+since its inception.83,84 Just as a list of genes (a signature) is not enough
+to make predictions, and neither is clustering. There are certainly
+scientific questions that can be appropriately answered by applying a
+data structures for making microarray data publicly available.68 Many
+journals require authors of papers that use microarray data to deposit
+them in a public repository (such as the Gene Expression Omnibus
+or ArrayExpress) in a format that adheres to the MIAME standard.
+The MIAME data structures apply directly to a wide variety of technologies. One weakness of MIAME and related standards, such as the
+minimum information about a proteomics experiment (MIAPE)
+standard,69 is that, although they describe the collection of metadata
+about the technology used in an experiment, they do not include a
+structured way to store clinical or demographic data about the patients
+whose samples were used in the experiments. Other important guidelines
+include the reporting recommendations for tumor marker prognostic
+studies (REMARK),70,71 the CONSORT statement for randomized
+trials,72 and the STARD initiative for diagnostic studies.73
+Discovery Phase
+The discovery phase lasts from the initial experiments through complete
+definition of a locked-down computational model to predict an outcome
+of interest. During this phase, researchers should:
+• Make the data and metadata publicly available
+• Make the computer code and analysis protocols publicly available
+• Confirm the model by using an independent, preferably blinded,
+set of samples
+• Lock down the model, including molecular measurements, computational procedures, and intended clinical use
+The recommendations to make the data and code available grew
+out of the problems encountered at Duke University,74,75 but they
+reflect a larger concern with reproducible research in computationally
+intensive sciences.76–79 Because it is impossible to fully understand the
+biologic rationale behind a complex predictive model involving tens
+or hundreds of genes, it is critically important to be able to confirm
+that the statistical analysis to discover the model was performed both
+sensibly and reproducibly. Checking these results requires access to
+both the original data and the computer code used to analyze it.
+The requirement to specify the intended clinical use is also critical.
+Such information should answer the following questions: In what
+group of patients will the signature be tested? Will the result of the
+test be used to screen patients for early diagnosis? Will it provide
+prognostic information? Will it help select therapy? Will it be used
+to monitor minimal residual disease or the possibility of recurrence?
+Different applications require different performance characteristics to
+demonstrate the usefulness of a biomarker or signature and thus require
+different experimental designs and different types of controls. Research
+scientists who have the expertise to develop omics signatures but are
+not accustomed to designing or running clinical trials can fail to think
+carefully about these issues. In one example, researchers reported the
+discovery of peptide patterns with nearly 100% sensitivity and specificity
+to detect prostate cancer.80 The problem was that the cancer specimens
+came from a group of men with a mean age of 67 years, whereas the
+control subjects came from a group composed of 58% women, with
+a mean age of 35 years.81
+Test Validation Phase
+The goal of the test validation phase is to take the locked-down predictive model and turn it into a usable clinical assay. During this phase,
+researchers should:
+• Use a CLIA-certified laboratory
+• Design, optimize, validate, and implement the test using current
+laboratory standards
+• If multiple laboratories will perform the test, ensure that all laboratories meet the analytic validation and CLIA requirements
+We have touched briefly on the need to standardize the assay in
+our discussion of challenges. The current era of rapidly changing 
+Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17 293
+and tumor (such as histopathology and cytopathology), genetic variants
+and somatic mutations present in malignant cells, or predisposition
+to mutation based on identified by simple sequence repeats DNA.89a
+Although the evolution of informatics technology has the potential
+to generate massive databases for quantitative-based interrogations of
+many informatics sources, the success of precision medicine will depend
+on the extent to which these rich databases may be used to advance
+understanding of the disease profiles and ultimately integrated for
+treatment selection, necessitating robust quantitative methodology
+for dimension reduction and appropriate trial design. Specifically, the
+effectiveness with which a treatment’s usefulness in a given type of
+tumor or patient may be estimated from data inherently depends on
+the effectiveness with which one may characterize the relative contributions of determinants that are predictive of treatment effectiveness
+versus those features that are prognostic of the disease extent.90 Considering the oncology context, predictive features could characterize correlates
+of the particular mechanisms by which the tumor evades apoptosis,
+and prognostic features determine the likelihood of response with an
+established standard-of-care strategy.
+Although several statistical methods have been proposed to address
+challenges arising with the high-dimensionality of omics-type data,
+these methods have largely emphasized the manner in which associations
+may be identified with clinical outcomes when genomic features have
+been acquired from a relatively limited number of patients. These
+methods, although useful for identifying associations deriving from
+prognostic biomarkers, are often limited for discovering predictive
+biomarkers that interact with treatment and fail to elucidate the predictive power of subpopulations. Ma and colleagues91 conducted a survey
+of statistical methods for establishing personalized treatment selection
+rules that are currently available in the statistical literature. Bayesian
+approaches that predict the usefulness of personalized treatment for
+a given individual’s tumor on the basis of measures of interpatient
+molecular similarity92,93 have been established.
+The potential benefits of such biomarker-guided therapy are
+seemingly substantial, but discovery of prognostic and predictive
+markers from signal in the presence of many noise covariates remains
+a challenge.94 Several aspects of the feature inputs, such as process or
+interobserver reproducibility, need to be considered carefully before
+the proposed methods are used for personalized selection with large-scale
+genomic, imaging, and clinical data. A checklist of criteria has been
+developed by the US National Cancer Institute to address issues of
+specimens, assays, and clinical trial design.95
+Biomarker-Driven Adaptive Clinical Trials and
+Case Studies
+Precision medicine challenges the traditional paradigms of clinical
+translation, for which estimates of population-averaged effects from
+large randomized trials are used as the basis for demonstrating improvements in comparative effectiveness. Moreover, successes for targeted
+therapeutic strategies have been limited. For example, from 2003 to
+2011, 71.7% of investigational agents failed in phase II trials, and
+only 10.5% attained final market approval from the FDA.96 The low
+success rates may be attributable to reliance on inadequate trial designs
+for characterizing treatment benefit and on analytic approaches that
+are inadequate for characterizing selection rules based on the joint
+effects of multiple candidate biomarkers or environmental exposures.97
+Despite innovations in trial design for precision medicines, statistical
+methods for validating predictive biomarkers remain less established
+than for prognostic biomarkers.98 Strategies such as enrichment, allcomers, and hybrid designs99,100 have been proposed for predictive
+biomarker validation. Moreover, current validation designs predominately consider validation strategies for binary markers arising from
+a single source. Most validation approaches rely on linear models that
+use interaction terms to characterize the partial effects of receipt of a
+type of targeted therapy given observed values of candidate predictive
+biomarkers.101,102
+clustering algorithm; the canonic example involves identifying natural
+biologic subtypes within a larger class of cancer samples. It is, however,
+possible to identify subtypes with different response profiles. The most
+likely way to find subtypes related to outcome is to start by performing
+feature-by-feature statistical tests that identify individual predictors
+of outcome. After selection of the best predictors, the resulting list of
+genes (signature!) can be used to cluster the samples. A statistical test
+can then be performed to determine if the resulting “cluster membership” variable is a good predictor of outcome.
+The literature distinguishes between supervised and unsupervised
+analyses. Supervised methods use the outcome during the analysis;
+the simplest example is a t-test to identify genes that are differentially
+expressed between responders and nonresponders. By contrast, clustering
+is the classic example of an unsupervised approach, because it uses the
+gene expression measurements only during clustering. However, the
+procedure described in the previous paragraph is not unsupervised;
+the process of selecting the best predictive features is a supervised
+(and essential) part of the procedure.
+Two questions illustrate why this clustering procedure, by itself, is
+inadequate for prediction or classification. First, what happens when
+you get the data for one new patient? Can you tell to which cluster
+he or she belongs? Second, how do you validate the clustering results
+on an independent data set? In both cases, clustering is unable to
+tell us how to react to new data. Again, this problem has a simple
+solution. The clustering results must be supplemented by developing
+a completely specified, locked-down predictive model that assigns
+new samples to the existing clusters. Not surprisingly, this model
+will probably use the same features that were selected to perform
+clustering. After this model is constructed, the predictions can be
+validated on new data sets and used in prospective clinical trials to
+classify patients one at a time.
+PRECISION MEDICINE
+Precision medicine endeavors to understand the mechanisms of
+pharmacogenetics and ultimately to achieve conformality between
+therapeutic interventions and the individuals being treated. With
+advancements in the understanding of molecular cancer biology, several
+treatment strategies that target specific biomarkers, such as crizotinib
+for non–small cell lung cancer (NSCLC) characterized by an anaplastic
+lymphoma kinase (ALK) gene rearrangement, have been discovered
+and translated into clinical practice.85 Early successes of molecularly
+targeted interventions have to some extent effectuated precision
+medicine. For example, antiestrogen agents, such as tamoxifen, are
+recommended for patients with breast tumors that harbor receptors
+for estrogen.86 Melanomas with BRAF V600E mutations have been
+shown to benefit from vemurafenib.87 In addition, therapy may be
+guided by signatures that comprise multiple markers, such as the
+Oncotype DX recurrence score (RS). Based on 21 genes, Oncotype
+DX is used to predict recurrence and response to adjuvant chemotherapy
+for estrogen receptor–positive (ER+) stage I or II invasive breast cancer.88
+Implicit to the concept of precision medicine is heterogeneity of
+treatment benefit among patients and patient populations. Its successful
+implementation relies on our understanding of distinct molecular
+profiles and their biomarkers, which can be used as targets to devise
+treatment strategies that exploit current understanding of the biologic
+mechanisms of the disease. The concept of personalizing clinical care,
+although a topic of recent emphasis, is not entirely new. Evaluations
+of individual-level characteristics have long been used to inform
+treatment selection.89 Advances in informatics technologies, however,
+have provided access to enormous databases yielding inputs that facilitate
+interrogation of therapeutic options in the presence of diverse types
+of molecular and clinical information.
+In oncology settings, biomarkers arising from diverse sources of
+patient-level informatics are being interrogated for their utility to
+inform treatment decisions and treatment monitoring. Biomarkers
+used in cancer may derive from clinical characteristics of the patient 
+294 Part I: Science Science and Clinical Clinical Oncology Oncology
+but they help improve the design’s performance. Bayesian modeling
+appropriately accounts for the uncertainty involved in this prediction
+process.
+Case Studies
+Oncotype DX
+The series of studies performed by Genomic Health to establish its
+Oncotype DX assay followed most of the procedures recommended
+by the IOM committee. First, the researchers asked a well-defined
+clinical question about a well-defined patient population. Their goal
+was to predict the risk of distant recurrence after tamoxifen treatment
+of women with node-negative, ER+ breast cancer. Second, they used
+four existing microarray data sets from the published literature to
+select 250 candidate genes. Third, they developed a new assay using
+qPCR to measure the expression levels of those 250 genes in tumor
+samples. Fourth, they validated the assay by obtaining data from tumor
+samples that had been collected in three independent clinical trials
+of breast cancer, involving a total of 447 women. They performed
+univariate analyses and selected 23 genes that were associated with
+the risk of recurrence in at least two of three qPCR data sets. They
+then constructed multivariate predictive models and further reduced
+the set of predictors to a panel of 16 cancer-related genes and five
+reference genes. Their approach was simple but elegant, reducing a
+multidimensional problem into a single number, an RS, which made
+for a straightforward validation process. The algorithm included cutoffs
+to separate patients into low-, intermediate-, and high-risk categories
+and was completely specified during this step. Fifth, they tested the
+prospectively defined qPCR assay and RS algorithm for their ability
+to predict recurrence in a retrospective set of 668 samples from the
+National Surgical Adjuvant Breast and Bowel Project (NSABP) B14
+trial, for which paraffin blocks were available.109 Another study showed
+that RS did not predict recurrence in women with node-negative
+breast cancer (regardless of ER status) who had received no adjuvant
+chemotherapy, which suggests that the signature depends on either
+the ER positivity or on the treatment.110 Although the RS was built
+to be prognostic, samples from the NSABP B20 trial showed that
+it helped predict response to chemotherapy for women with nodenegative, ER+ breast cancer, with no apparent benefit for women with
+low RSs.111
+BATTLE Trial
+The Biomarker-Integrated Approaches of Targeted Therapy for Lung
+Cancer Elimination (BATTLE) trial was a prospective phase II,
+biomarker-based, adaptively randomized study in 255 patients who
+had been pretreated for NSCLC.112,113 The trial consisted of four
+treatment arms of targeted therapies, each of which was associated
+with a prespecified set of biomarkers that were anticipated to predict
+the efficacy of the therapy: erlotinib (EGFR), sorafenib (KRAS/BRAF),
+vandetanib (VEGFR2), and bexarotene plus erlotinib (RXR/CCND1).
+The primary end point of the trial was 8-week disease control. After
+an initial equal randomization period, patients were adaptively randomized to one of the treatment arms, based on the molecular biomarkers
+analyzed in fresh core needle biopsy specimens. Overall results included
+a 46% 8-week disease control rate, median progression-free survival
+of 1.9 months (95% confidence interval [CI], 1.8–2.4), and median
+overall survival of 8.8 months (95% CI, 6.3–10.6). The results
+confirmed that EGFR mutations predicted better 8-week disease control
+with sorafenib.
+CONCLUSIONS
+Innovations in cancer research are developing rapidly. The quantitative
+aspects of this research, from assessing individual genes and biomarkers
+to evaluating pathways and systems biology, are becoming both more
+important and more difficult. Assessing which patients benefit from
+which therapies is the holy grail of cancer research, culminating in
+Examining interactions in ongoing clinical trials has many advantages.12 One is that requiring biomarker information for randomization
+means that information will be available for all patients, thus avoiding
+the “data missingness” problem that plagues retrospective biomarker
+studies.103 Another advantage is that when patients in a definable
+biomarker subset are not benefiting from a particular therapy, that
+subset can be dropped from the trial. In a multiarmed trial, biomarker
+subtypes that do not respond to a particular treatment can be excluded
+from that treatment arm, possibly gradually, through use of adaptive
+randomization.11 A consequence of excluding nonresponders is that
+focusing on responders means trials can become smaller. And of course,
+excluding patients who do not benefit reduces the extent of overtreatment of trial participants.
+An adaptive biomarker-driven clinical trial can begin by including
+all the patients who meet the enrollment criteria for the trial, but
+then can continue by restricting enrollment to individuals with
+biomarker profiles that match those of the responding population as
+the results accumulate over the course of the trial. Biomarker subsets
+can be identified in advance, generated on the basis of the data in the
+trial, or some combination of the two can be used by incorporating
+historical data via the prior distribution, as previously described. Any
+approach is subject to multiplicities.4
+ Basing an assessment on the
+responding subsets is particularly prone to false-positive conclusions
+and requires a level of within-trial empiric validation. The extent of
+validation is a design characteristic that can be determined prospectively.
+False-positive rates and statistical power can be evaluated and controlled,
+usually requiring simulations. Comprehensive overviews of recent
+advances in designs used in oncology for studying many agent-and-target
+combinations in parallel, such as platform trials, basket trials, and
+umbrella trials, can be found.104,105
+An example of a complicated biomarker-driven, adaptively randomized clinical trial is I-SPY212,106,107 (http://clinicaltrials.gov/show/
+NCT01042379) (http://www.ispy2.org/). The setting is neoadjuvant
+treatment for breast cancer in which the end point is pathologic complete
+response (pathCR), which the FDA has recently determined to be a registration end point in high-risk early breast cancer (http://www.fda.gov/
+downloads/Drugs/GuidanceComplianceRegulatoryInformation/
+Guidances/UCM305501.pdf). Investigational drugs are added to a
+taxane in the initial cycles of standard therapy. Similar trials are being
+explored in other diseases, including lymphoma.108
+The goal of I-SPY2 is to efficiently pair drugs and combinations
+with the patients’ biomarker profiles that characterize the disease subset
+that responds to that treatment. I-SPY2 is essentially a screening process.
+Through use of bayesian updating, assignment to therapy is adaptively
+randomized based on the patient’s tumor biomarkers and the drug’s
+performance in patients with similar biomarker profiles. A consequence
+of adaptive randomization is that better-performing drugs move through
+the process faster. Drugs are graduated when they have a sufficiently
+high (bayesian) predictive probability of success in a small, focused
+phase III trial involving patients who are most likely to benefit from
+the drug based on their biomarker profiles (or the molecular signature
+of their disease subtype).
+The biomarker categories for I-SPY2 are set in advance and apply
+to all therapies. The design considers 10 biomarker profiles, or molecular
+signatures, that make both marketing and biologic sense. The categories
+and signatures are fixed throughout, and any new therapy that is
+inserted into the trial conforms to the predefined set of biomarker
+signatures. In a trial similar to I-SPY, the tumor categories could be
+determined by the drugs’ targets.
+Even though the I-SPY2 end point is ascertained relatively
+quickly at surgery, waiting 6 months to learn whether a drug is
+benefiting a particular patient can be a long time. Therefore, magnetic resonance imaging was incorporated to assess tumor volume
+after the first cycle of therapy and after the 12 weeks of taxane or
+investigational drug cycles. Modeling the longitudinal relationship
+between pathCR and tumor volume reduction enables prediction of
+whether the patient will have a pathCR. Predictions are not perfect, 
+Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17 295
+will be. Our aim has been to describe some ways in which the scientific
+winds are blowing, preparing the reader to understand and appreciate
+the path being followed.
+The complete reference list is available online at
+ExpertConsult.com.
+clinical trials to demonstrate benefit, or lack thereof. A single adaptive
+clinical trial can be designed to discover responding subsets and validate
+the discovery. However, despite the great strides seen in modern cancer
+biology, strides of much greater magnitude are yet to come. Advances
+in biology lead to ever more and ever smaller subsets. Large clinical
+trials will soon be impossible, and traditional statistical approaches
+will have to be replaced. We cannot predict what those replacements
+KEY REFERENCES
+4. Berry DA. Multiplicities in cancer research: ubiquitous and necessary evils. J Natl Cancer Inst. 2012;104:
+1125–1133.
+7. Berry DA. Statistical innovations in cancer research.
+In: Holland J, Frei T, et al, eds. Cancer Medicine.
+8th ed. London: BC Decker; 2009.
+8. Berry DA. Bayesian approaches for comparative
+effectiveness research. Clin Trials. 2012;9:37–47.
+10. Biswas S, Liu DD, Lee JJ, Berry DA. Bayesian clinical
+trials at the University of Texas MD Anderson Cancer
+Center. Clin Trials. 2009;6:205–216.
+12. Berry DA. Adaptive clinical trials in oncology. Nat
+Rev Clin Oncol. 2011;9:199–207.
+13. Nass SJ, Moses HL, Mendelsohn J. Institute of
+Medicine: a national cancer clinical trials system for
+the 21st century: reinvigorating the NCI Cooperative Group Program. Washington, DC: National
+Academies Press; 2010.
+14. Wong KM, Capasso A, Eckhardt SG. The changing
+landscape of phase I trials in oncology. Nat Rev Clin
+Oncol. 2016;13(2):106–117.
+15. Ji Y, Wang SJ. Modified toxicity probability interval
+design: a safer and more reliable method than the 3
++ 3 design for practical phase I trials. J Clin Oncol.
+2013;31(14):1785–1791.
+16. Thall PF, Nguyen HQ, Braun TM, Qazilbash MH.
+Using joint utilities of the times to response and
+toxicity to adaptively optimize schedule-dose regimes.
+Biometrics. 2013;69(3):673–682.
+18. Hobbs BP, Chen N, Lee JJ. Controlled multi-arm
+platform design using predictive probability. Stat
+Methods Med Res. 2018;27(1):65–78.
+20. Hobbs BP, Thall PF, Lin SH. Bayesian group
+sequential clinical trial design using total toxicity
+burden and progression-free survival. J R Stat Soc
+Ser C Appl Stat. 2016;65(2):273–297.
+24. Kidwell KM. SMART designs in cancer research: past,
+present, and future. Clin Trials. 2014;11(4):445–456.
+32. Cancer Genome Atlas Research Network. Comprehensive genomic characterization defines human
+glioblastoma genes and core pathways. Nature.
+2008;455:1061–1068.
+33. Chin L, Andersen JN, Futreal PA. Cancer genomics:
+from discovery science to personalized medicine.
+Nat Med. 2011;17:297–303.
+39. Calin GA, Dumitru CD, Shimizu M, et al. Frequent
+deletions and down-regulation of micro-RNA
+genes miR15 and miR16 at 13q14 in chronic
+lymphocytic leukemia. Proc Natl Acad Sci USA.
+2002;99:15524–15529.
+42. Kozomara A, Griffiths-Jones S. miRBase: integrating
+microRNA annotation and deep-sequencing data.
+Nucleic Acids Res. 2011;39:D152–D157.
+48. Reich M, Liefeld T, Gould J, et al. GenePattern
+2.0. Nat Genet. 2006;38:500–501.
+49. Leek JT, Scharpf RB, Bravo HC, et al. Tackling
+the widespread and critical impact of batch effects
+in high-throughput data. Nat Rev Genet. 2010;11:
+733–739.
+50. Petricoin EF, Ardekani AM, Hitt BA, et al. Use
+of proteomic patterns in serum to identify ovarian
+cancer. Lancet. 2002;359:572–577.
+52. Baggerly KA, Edmonson SR, Morris JS, Coombes
+KR. High-resolution serum proteomic patterns
+for ovarian cancer detection. Endocr Relat Cancer.
+2004;11:583–584, author reply 585–7.
+53. Baggerly KA, Morris JS, Coombes KR. Reproducibility of SELDI-TOF protein patterns in serum:
+comparing datasets from different experiments.
+Bioinformatics. 2004;20:777–785.
+54. Luo J, Schumacher M, Scherer A, et al. A comparison
+of batch effect removal methods for enhancement of
+prediction performance using MAQC-II microarray gene expression data. Pharmacogenomics J.
+2010;10:278–291.
+55. Chen C, Grennan K, Badner J, et al. Removing batch
+effects in analysis of expression microarray data: an
+evaluation of six batch adjustment methods. PLoS
+ONE. 2011;6(2):e17238.
+57. McCall MN, Bolstad BM, Irizarry RA. Frozen
+robust multiarray analysis (fRMA). Biostatistics.
+2010;11:242–253.
+60. Efron B, Tibshirani R. Empirical Bayes methods and
+false discovery rates for microarrays. Genet Epidemiol.
+2002;23:70–86.
+62. Storey JD, Tibshirani R. Statistical significance
+for genomewide studies. Proc Natl Acad Sci USA.
+2003;100:9440–9445.
+63. Pounds S, Cheng C. Improving false discovery rate
+estimation. Bioinformatics. 2004;20:1737–1745.
+64. Qian HR, Huang S. Comparison of false discovery
+rate methods in identifying genes with differential
+expression. Genomics. 2005;86:495–503.
+65. Baggerly KA, Coombes KR. Deriving chemosensitivity from cell lines: forensic bioinformatics and
+reproducible research in high-throughput biology.
+Ann Appl Stat. 2009;3:1309–1334.
+67. Pepe MS, Etzioni R, Feng Z, et al. Phases of biomarker development for early detection of cancer.
+J Natl Cancer Inst. 2001;93:1054–1061.
+74. Baggerly K. Disclose all data in publications. Nature.
+2010;467:401.
+75. Baggerly KA, Coombes KR. What information
+should be required to support clinical “omics”
+publications? Clin Chem. 2011;57:688–690.
+79. Peng RD. Reproducible research in computational
+science. Science. 2011;334:1226–1227.
+82. Simon RM, Paik S, Hayes DF. Use of archived
+specimens in evaluation of prognostic and predictive
+biomarkers. J Natl Cancer Inst. 2009;101:1446–1452.
+86. Simon R. Advances in clinical trial designs for
+predictive biomarker discovery and validation.
+Current Breast Cancer Reports. 2009;1(4):216–221.
+87. Sosman JA, Kim KB, Schuchter L, Gonzalez R,
+Pavlick AC, Weber JS, et al. Survival in BRAF
+V600-mutant advanced melanoma treated with
+vemurafenib. N Engl J Med. 2012;366(8):707–714.
+90. Simon R. Clinical trial designs for evaluating the
+medical utility of prognostic and predictive biomarkers in oncology. Per Med. 2010;7(1):33–47.
+91. Ma J, Hobbs BP, Stingo FC. Statistical methods for
+establishing personalized treatment rules in oncology.
+Biomed Res Int. 2015;2015:670691.
+92. Ma J, Stingo FC, Hobbs BP. Bayesian predictive
+modeling for genomic based personalized treatment
+selection. Biometrics. 2016;72(2):575–583.
+93. Ma J, Hobbs BP, Stingo FC. Integrating genomic
+signatures for treatment selection with Bayesian
+predictive failure time models. Stat Methods Med
+Res. 2016;[Epub ahead of print].
+95. McShane LM, Cavenagh MM, Lively TG, Eberhard
+DA, Bigbee WL, Williams PM, et al. Criteria for
+the use of omics-based predictors in clinical trials.
+Nature. 2013;502(7471):317–320.
+96. Hay M, Thomas DW, Craighead JL, Economides C,
+Rosenthal J. Clinical development success rates for
+investigational drugs. Nat Biotechnol. 2014;32(1):
+40–51.
+100. Mandrekar SJ, Sargent DJ. Predictive biomarker
+validation in practice: lessons from real trials. Clinical
+trials. 2010.
+101. Mandrekar SJ, Sargent DJ. Design of clinical trials for
+biomarker research in oncology. Clinical investigation.
+2011;1(12):1627–1636.
+107. Berry DA, Herbst RS, Rubin EH. Design strategies for
+personalized therapy trials. Clin Cancer Res. 2012;18:
+638–644.
+108. Younes A, Berry DA. From drug discovery to
+biomarker-driven clinical trials in lymphoma. Nat
+Rev Clin Oncol. 2012;9:643–653.
+109. Paik S, Shak S, Tang G, et al. A multigene assay to
+predict recurrence of tamoxifen-treated, node-negative
+breast cancer. N Engl J Med. 2004;351:2817–2826.
+110. Esteva FJ, Sahin AA, Cristofanilli M, et al. Prognostic
+role of a multigene reverse transcriptase-PCR assay
+in patients with node-negative breast cancer not
+receiving adjuvant systemic therapy. Clin Cancer
+Res. 2005;11:3315–3319.
+111. Paik S, Tang G, Shak S, et al. Gene expression and
+benefit of chemotherapy in women with nodenegative, estrogen receptor-positive breast cancer.
+J Clin Oncol. 2006;24:3726–3734.
+113. Kim ES, Herbst RS, Wistuba II, et al. The BATTLE
+trial: personalizing therapy for lung cancer. Cancer
+Discov. 2011;1:44–53.
+295.e1 Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17
+REFERENCES
+1. Bernoulli J. The Art of Conjecturing, Together with
+Letter to a Friend on Sets in Court Tennis (English
+translation of the 1713 text by Edith Sylla). Baltimore:
+Johns Hopkins University Press; 2005.
+2. Stigler SM. Gauss and the invention of least squares.
+Ann Statist. 1981;9:465–474.
+3. Bernoulli D. Exposition of a new theory on
+the measurement of risk [1738]. Econometrica.
+1954;22:23–36. https://engineering.purdue.edu/
+~ipollak/ece302/SPRING12/notes/Bernoulli_1738
+.pdf/. Accessed March 15, 2013. 2009.
+4. Berry DA. Multiplicities in cancer research:
+ubiquitous and necessary evils. J Natl Cancer Inst.
+2012;104:1125–1133.
+5. Berger JO, Berry DA. Statistical analysis and the
+illusion of objectivity. Am Sci. 1988;76:159–165.
+6. Berry DA, Stangl DK. Bayesian Biostatistics. New
+York: Marcel Dekker; 1996.
+7. Berry DA. Statistical innovations in cancer research.
+In: Holland J, Frei T, et al, eds. Cancer Medicine.
+8th ed. London: BC Decker; 2009.
+8. Berry DA. Bayesian approaches for comparative
+effectiveness research. Clin Trials. 2012;9:37–47.
+9. Yoshioka A. Use of randomisation in the Medical
+Research Council’s clinical trial of streptomycin
+in pulmonary tuberculosis in the 1940s. BMJ.
+1998;317:1220–1223.
+10. Biswas S, Liu DD, Lee JJ, Berry DA. Bayesian clinical
+trials at the University of Texas MD Anderson Cancer
+Center. Clin Trials. 2009;6:205–216.
+11. Berry DA. Adaptive clinical trials: the promise and
+the caution. J Clin Oncol. 2011;29:606–609.
+12. Berry DA. Adaptive clinical trials in oncology. Nat
+Rev Clin Oncol. 2011;9:199–207.
+13. Nass SJ, Moses HL, Mendelsohn J. Institute of
+Medicine: a national cancer clinical trials system for the
+21st century: reinvigorating the NCI Cooperative Group
+Program. Washington, DC: National Academies
+Press; 2010.
+14. Wong KM, Capasso A, Eckhardt SG. The changing
+landscape of phase I trials in oncology. Nat Rev Clin
+Oncol. 2016;13(2):106–117.
+15. Ji Y, Wang SJ. Modified toxicity probability interval
+design: a safer and more reliable method than the 3
++ 3 design for practical phase I trials. J Clin Oncol.
+2013;31(14):1785–1791.
+16. Thall PF, Nguyen HQ, Braun TM, Qazilbash MH.
+Using joint utilities of the times to response and
+toxicity to adaptively optimize schedule-dose regimes.
+Biometrics. 2013;69(3):673–682.
+17. Zhang J, Braun TM. A phase I Bayesian adaptive
+design to simultaneously optimize dose and schedule
+assignments both between and within patients.
+J American Statistical Assoc. 2013;108:892–901.
+18. Hobbs BP, Chen N, Lee JJ. Controlled multi-arm
+platform design using predictive probability. Stat
+Methods Med Res. 2018;27(1):65–78.
+19. Bekele BN, Thall PF. Dose-finding based on multiple
+toxicities in a soft tissue sarcoma trial. J. Am.Statist.
+Ass. 2004;99:26–34.
+20. Hobbs BP, Thall PF, Lin SH. Bayesian group
+sequential clinical trial design using total toxicity
+burden and progression-free survival. J R Stat Soc
+Ser C Appl Stat. 2016;65(2):273–297.
+21. Thall PF, Cook JD. Dose-finding based on efficacytoxicity trade-offs. Biometrics. 2004;60(3):684–693.
+22. Zhang W, Sargent DJ, Mandrekar S. An adaptive
+dose-finding design incorporating both toxicity and
+efficacy. Stat Med. 2006;25(14):2365–2383.
+23. Wang L, Rotnitzky A, Lin X, Millikan RE, Thall
+PF. Evaluation of viable dynamic treatment regimes
+in a sequentially randomized trial of advanced
+prostate cancer. J Am Stat Assoc. 2012;107(498):
+493–508.
+24. Kidwell KM. SMART designs in cancer research:
+past, present, and future. Clin Trials. 2014;11(4):
+445–456.
+25. Fodor SP, Rava RP, Huang XC, et al. Multiplexed
+biochemical assays with biological chips. Nature.
+1993;364:555–556.
+26. Schena M, Shalon D, Davis RW, Brown PO.
+Quantitative monitoring of gene expression patterns
+with a complementary DNA microarray. Science.
+1995;270:467–470.
+27. DeRisi J, Penland L, Brown PO, et al. Use of a
+cDNA microarray to analyse gene expression patterns
+in human cancer. Nat Genet. 1996;14:457–460.
+28. Khan J, Simon R, Bittner M, et al. Gene expression
+profiling of alveolar rhabdomyosarcoma with cDNA
+microarrays. Cancer Res. 1998;58:5009–5013.
+29. Alon U, Barkai N, Notterman DA, et al. Broad
+patterns of gene expression revealed by clustering
+analysis of tumor and normal colon tissues probed
+by oligonucleotide arrays. Proc Natl Acad Sci USA.
+1999;96:6745–6750.
+30. Golub TR, Slonim DK, Tamayo P, et al. Molecular
+classification of cancer: class discovery and class
+prediction by gene expression monitoring. Science.
+1999;286:531–537.
+31. Perou CM, Jeffrey SS, van de Rijn M, et al. Distinctive gene expression patterns in human mammary
+epithelial cells and breast cancers. Proc Natl Acad
+Sci USA. 1999;96:9212–9217.
+32. Cancer Genome Atlas Research Network. Comprehensive genomic characterization defines human
+glioblastoma genes and core pathways. Nature.
+2008;455:1061–1068.
+33. Chin L, Andersen JN, Futreal PA. Cancer genomics:
+from discovery science to personalized medicine.
+Nat Med. 2011;17:297–303.
+34. Chin L, Hahn WC, Getz G, Meyerson M. Making
+sense of cancer genomic data. Genes Dev. 2011;25:
+534–555.
+35. Lee RC, Feinbaum RL, Ambros V. The C. elegans
+heterochronic gene lin-4 encodes small RNAs
+with antisense complementarity to lin-14. Cell.
+1993;75:843–854.
+36. Lagos-Quintana M, Rauhut R, Lendeckel W, Tuschl
+T. Identification of novel genes coding for small
+expressed RNAs. Science. 2001;294:853–858.
+37. Lau NC, Lim LP, Weinstein EG, Bartel DP.
+An abundant class of tiny RNAs with probable
+regulatory roles in Caenorhabditis elegans. Science.
+2001;294:858–862.
+38. Lee RC, Ambros V. An extensive class of small
+RNAs in Caenorhabditis elegans. Science. 2001;294:
+862–864.
+39. Calin GA, Dumitru CD, Shimizu M, et al. Frequent
+deletions and down-regulation of micro-RNA
+genes miR15 and miR16 at 13q14 in chronic
+lymphocytic leukemia. Proc Natl Acad Sci USA.
+2002;99:15524–15529.
+40. Griffiths-Jones S, Grocock RJ, van Dongen S,
+et al. miRBase: microRNA sequences, targets and
+gene nomenclature. Nucleic Acids Res. 2006;34:
+D140–D144.
+41. Griffiths-Jones S, Saini HK, van Dongen S, Enright
+AJ. miRBase: tools for microRNA genomics. Nucleic
+Acids Res. 2008;36:D154–D158.
+42. Kozomara A, Griffiths-Jones S. miRBase: integrating
+microRNA annotation and deep-sequencing data.
+Nucleic Acids Res. 2011;39:D152–D157.
+43. Li C, Wong WH. Model-based analysis of oligonucleotide arrays: expression index computation
+and outlier detection. Proc Natl Acad Sci U SA.
+2001;98:31–36.
+44. Bolstad BM, Irizarry RA, Astrand M, Speed TP.
+A comparison of normalization methods for high
+density oligonucleotide array data based on variance
+and bias. Bioinformatics. 2003;19:185–193.
+45. Irizarry RA, Hobbs B, Collin F, et al. Exploration,
+normalization, and summaries of high density
+oligonucleotide array probe level data. Biostatistics.
+2003;4:249–264.
+46. Gentleman RC, Carey VJ, Bates DM, et al.
+Bioconductor: open software development for
+computational biology and bioinformatics. Genome
+Biol. 2004;5:R80.
+47. R Core Team. R: A Language and Environment for
+Statistical Computing. Vienna: R Foundation for
+Statistical Computing; 2012.
+48. Reich M, Liefeld T, Gould J, et al. GenePattern
+2.0. Nat Genet. 2006;38:500–501.
+49. Leek JT, Scharpf RB, Bravo HC, et al. Tackling
+the widespread and critical impact of batch effects
+in high-throughput data. Nat Rev Genet. 2010;11:
+733–739.
+50. Petricoin EF, Ardekani AM, Hitt BA, et al. Use
+of proteomic patterns in serum to identify ovarian
+cancer. Lancet. 2002;359:572–577.
+51. Sorace JM, Zhan M. A data review and re-assessment
+of ovarian cancer serum proteomic profiling. BMC
+Bioinformatics. 2003;4:24.
+52. Baggerly KA, Edmonson SR, Morris JS, Coombes
+KR. High-resolution serum proteomic patterns
+for ovarian cancer detection. Endocr Relat Cancer.
+2004;11:583–584, author reply 585–7.
+53. Baggerly KA, Morris JS, Coombes KR. Reproducibility of SELDI-TOF protein patterns in serum:
+comparing datasets from different experiments.
+Bioinformatics. 2004;20:777–785.
+54. Luo J, Schumacher M, Scherer A, et al. A comparison
+of batch effect removal methods for enhancement of
+prediction performance using MAQC-II microarray
+gene expression data. Pharmacogenomics J. 2010;
+10:278–291.
+55. Chen C, Grennan K, Badner J, et al. Removing batch
+effects in analysis of expression microarray data: an
+evaluation of six batch adjustment methods. PLoS
+ONE. 2011;6(2):e17238.
+56. Lazar C, Meganck S, Taminau J, et al. Batch effect
+removal methods for microarray gene expression data
+integration: a survey. Brief Bioinform. 2012;Jul 31
+[Epub ahead of print].
+57. McCall MN, Bolstad BM, Irizarry RA. Frozen
+robust multiarray analysis (fRMA). Biostatistics.
+2010;11:242–253.
+58. Livak KJ, Schmittgen TD. Analysis of relative gene
+expression data using real-time quantitative PCR
+and the 2(-Delta Delta C(T). Method. Methods.
+2001;25:402–408.
+59. Benjamini Y, Hochberg Y. Controlling the false
+discovery rate: a practical and powerful approach
+to multiple testing. J R Stat Soc Series B Stat Methodol.
+1995;57:289–300.
+60. Efron B, Tibshirani R. Empirical Bayes methods and
+false discovery rates for microarrays. Genet Epidemiol.
+2002;23:70–86.
+61. Pounds S, Morris SW. Estimating the occurrence
+of false positives and false negatives in microarray
+studies by approximating and partitioning the
+empirical distribution of p-values. Bioinformatics.
+2003;19:1236–1242.
+62. Storey JD, Tibshirani R. Statistical significance
+for genomewide studies. Proc Natl Acad Sci USA.
+2003;100:9440–9445.
+63. Pounds S, Cheng C. Improving false discovery rate
+estimation. Bioinformatics. 2004;20:1737–1745.
+64. Qian HR, Huang S. Comparison of false discovery
+rate methods in identifying genes with differential
+expression. Genomics. 2005;86:495–503.
+65. Baggerly KA, Coombes KR. Deriving chemosensitivity from cell lines: forensic bioinformatics and
+reproducible research in high-throughput biology.
+Ann Appl Stat. 2009;3:1309–1334.
+66. Committee on the Review of Omics-Based Tests for
+Predicting Patient Outcomes in Clinical Trials. In:
+Christine MM, Sharly JN, Gilbert SO, eds. Evolution
+of Translational Omics: Lessons Learned and the Path
+Forward. Washington, DC: The National Academies
+Press; 2012.
+Biostatistics and Bioinformatics in Clinical Trials • CHAPTER 17 295.e1
+295.e2 Part I: Science Science and Clinical Clinical Oncology Oncology
+67. Pepe MS, Etzioni R, Feng Z, et al. Phases of biomarker development for early detection of cancer.
+J Natl Cancer Inst. 2001;93:1054–1061.
+68. Brazma A, Hingamp P, Quackenbush J, et al.
+Minimum information about a microarray experiment (MIAME)-toward standards for microarray
+data. Nat Genet. 2001;29:365–371.
+69. Orchard S, Hermjakob H, Taylor CF, et al. Further
+steps in standardisation. Report of the second annual
+Proteomics Standards Initiative Spring Workshop
+(Siena, Italy 17–20th April 2005). Proteomics. 2005;5:
+3552–3555.
+70. McShane LM, Altman DG, Sauerbrei W, et al.
+Statistics Subcommittee of the NCIEWGoCD.
+Reporting recommendations for tumor marker
+prognostic studies (REMARK). J Natl Cancer Inst.
+2005;97:1180–1184.
+71. Altman DG, McShane LM, Sauerbrei W, Taube
+SE. Reporting Recommendations for Tumor Marker
+Prognostic Studies (REMARK): explanation and
+elaboration. PLoS Med. 2012;9:e1001216.
+72. Moher D, Schulz KF, Altman D, Group C. The
+CONSORT statement: revised recommendations
+for improving the quality of reports of parallel-group
+randomized trials. JAMA. 2001;285:1987–1991.
+73. Bossuyt PM, Reitsma JB, Bruns DE, et al. Standards
+for Reporting of Diagnostic A. The STARD statement for reporting studies of diagnostic accuracy:
+explanation and elaboration. Clin Chem. 2003;49:
+7–18.
+74. Baggerly K. Disclose all data in publications. Nature.
+2010;467:401.
+75. Baggerly KA, Coombes KR. What information
+should be required to support clinical “omics”
+publications? Clin Chem. 2011;57:688–690.
+76. Buckheit J, Donoho DL. Wavelab and reproducible
+research. In: Antoniadis A, ed. Wavelets and Statistics.
+New York: Springer-Verlag; 1995.
+77. Leisch F, Rossini AJ. Reproducible statistical research.
+Chance. 2003;16:46–50.
+78. Gentleman R. Reproducible research: a bioinformatics case study. Stat Appl Genet Mol Biol. 2005;4:
+Article2.
+79. Peng RD. Reproducible research in computational
+science. Science. 2011;334:1226–1227.
+80. Villanueva J, Shaffer DR, Philip J, et al. Differential
+exoprotease activities confer tumor-specific serum
+peptidome patterns. J Clin Invest. 2006;116:271–284.
+81. Ransohoff DF, Gourlay ML. Sources of bias in
+specimens for research about molecular markers
+for cancer. J Clin Oncol. 2010;28:698–704.
+82. Simon RM, Paik S, Hayes DF. Use of archived
+specimens in evaluation of prognostic and predictive
+biomarkers. J Natl Cancer Inst. 2009;101:1446–1452.
+83. Weinstein JN, Myers TG, O’Connor PM, et al. An
+information-intensive approach to the molecular
+pharmacology of cancer. Science. 1997;275:343–
+349.
+84. Eisen MB, Spellman PT, Brown PO, Botstein D.
+Cluster analysis and display of genome-wide expression patterns. Proc Natl Acad Sci USA. 1998;95:
+14863–14868.
+85. Kelloff GJ, Sigman CC. Cancer biomarkers: selecting
+the right drug for the right patient. Nat Rev Drug
+Discov. 2012;11(3):201–214.
+86. Simon R. Advances in clinical trial designs for
+predictive biomarker discovery and validation.
+Current Breast Cancer Reports. 2009;1(4):216–221.
+87. Sosman JA, Kim KB, Schuchter L, Gonzalez R,
+Pavlick AC, Weber JS, et al. Survival in BRAF
+V600-mutant advanced melanoma treated with
+vemurafenib. N Engl J Med. 2012;366(8):707–714.
+88. Albain KS, Barlow WE, Shak S, Hortobagyi GN,
+Livingston RB, Yeh IT, et al. Prognostic and
+predictive value of the 21-gene recurrence score
+assay in postmenopausal women with node-positive,
+oestrogen-receptor-positive breast cancer on chemotherapy: a retrospective analysis of a randomised
+trial. Lancet Oncol. 2010;11(1):55–65.
+89. Byar DP, Corle DK. Selecting optimal treatment in
+clinical trials using covariate information. J Chronic
+Dis. 1977;30(7):445–459.
+89a. Ellegren H. Microsatellites: simple sequences with
+complex evolution. Nat Rev Genet. 2004;5(6):
+435–445.
+90. Simon R. Clinical trial designs for evaluating the
+medical utility of prognostic and predictive biomarkers in oncology. Per Med. 2010;7(1):33–47.
+91. Ma J, Hobbs BP, Stingo FC. Statistical methods for
+establishing personalized treatment rules in oncology.
+Biomed Res Int. 2015;2015:670691.
+92. Ma J, Stingo FC, Hobbs BP. Bayesian predictive
+modeling for genomic based personalized treatment
+selection. Biometrics. 2016;72(2):575–583.
+93. Ma J, Hobbs BP, Stingo FC. Francesco C Stingo.
+Integrating genomic signatures for treatment selection with bayesian predictive failure time models.
+Stat Methods Med Res. 2016;[Epub ahead of print].
+94. Food and Drug Administration. Paving the Way
+for Personalized Medicine: FDA’s Role in a New
+Era of Medical Product Development. http://www.
+fda.gov/downloads/ScienceResearch/SpecialTopics/
+PersonalizedMedicine, 2013.
+95. McShane LM, Cavenagh MM, Lively TG, Eberhard
+DA, Bigbee WL, Williams PM, et al. Criteria for
+the use of omics-based predictors in clinical trials.
+Nature. 2013;502(7471):317–320.
+96. Hay M, Thomas DW, Craighead JL, Economides
+C, Rosenthal J. Clinical development success
+rates for investigational drugs. Nat Biotechnol.
+2014;32(1):40–51.
+97. Knox SS. From ‘omics’ to complex disease: a systems
+biology approach to gene-environment interactions
+in cancer. Cancer Cell Int. 2010.
+98. Janes H, Pepe MS, Bossuyt PM, Barlow WE.
+Measuring the performance of markers for guiding
+treatment decisions. Ann Intern Med. 2011;154(4):
+253–259.
+99. Mandrekar SJ, Sargent DJ. Clinical trial designs for
+predictive biomarker validation: one size does not
+fit all. J Biopharm Stat. 2009;19(3):530–542.
+100. Mandrekar SJ, Sargent DJ. Predictive biomarker
+validation in practice: lessons from real trials. Clinical
+trials. 2010.
+101. Mandrekar SJ, Sargent DJ. Design of clinical trials for
+biomarker research in oncology. Clinical investigation.
+2011;1(12):1627–1636.
+102. Chen JJ, Lu TP, Chen DT, Wang SJ. Biomarker
+adaptive designs in clinical trials. Translational Cancer
+Research. 2014;3(3):279–292.
+103. Rimm DL, Nielsen TO, Jewell SD, et al. Cancer and
+Leukemia Group B Pathology Committee guidelines
+for tissue microarray construction representing
+multicenter prospective clinical trial tissues. J Clin
+Oncol. 2011;29:2282–2290.
+104. Renfro L, Sargent D. Statistical controversies in
+clinical research: basket trials, umbrella trials, and
+other master protocols: a review and examples. Ann
+Oncol. 2016.
+105. Berry DA. The brave new world of clinical cancer
+research: adaptive biomarker-driven trials integrating
+clinical practice with clinical research. Mol Oncol.
+2015;9(5):951–959.
+106. Barker AD, Sigman CC, Kelloff GJ, et al. I-SPY2:
+an adaptive breast cancer trial design in the setting
+of neoadjuvant chemotherapy. Clin Pharmacol Ther.
+2009;86:97–100.
+107. Berry DA, Herbst RS, Rubin EH. Design strategies
+for personalized therapy trials. Clin Cancer Res.
+2012;18:638–644.
+108. Younes A, Berry DA. From drug discovery to
+biomarker-driven clinical trials in lymphoma. Nat
+Rev Clin Oncol. 2012;9:643–653.
+109. Paik S, Shak S, Tang G, et al. A multigene assay
+to predict recurrence of tamoxifen-treated, nodenegative breast cancer. N Engl J Med. 2004;351:
+2817–2826.
+110. Esteva FJ, Sahin AA, Cristofanilli M, et al. Prognostic
+role of a multigene reverse transcriptase-PCR assay
+in patients with node-negative breast cancer not
+receiving adjuvant systemic therapy. Clin Cancer
+Res. 2005;11:3315–3319.
+111. Paik S, Tang G, Shak S, et al. Gene expression and
+benefit of chemotherapy in women with nodenegative, estrogen receptor-positive breast cancer.
+J Clin Oncol. 2006;24:3726–3734.
+112. Zhou X, Liu S, Kim ES, et al. Bayesian adaptive
+design for targeted therapy development in lung
+cancer—a step toward personalized medicine. Clin
+Trials. 2008;5:181–193.
+113. Kim ES, Herbst RS, Wistuba II, et al. The BATTLE
+trial: personalizing therapy for lung cancer. Cancer
+Discov. 2011;1:44–53.
